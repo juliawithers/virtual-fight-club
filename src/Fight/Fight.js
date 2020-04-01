@@ -18,6 +18,7 @@ export default class Fight extends Component {
     }
     
     componentDidMount(){
+        console.log('hello, adding something to change')
         // we have curent user, need to get character data on characters using context (user)
         // use matches to calculate win loss and points using user
         const wins = this.context.matches.filter(match=>match.winner === this.context.user.username);
