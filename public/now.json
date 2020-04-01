@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "name": "virtual-fight-club",
+    "routes": [
+        { "handle": "filesystem" },
+        { "src": "/.*", "dest": "/index.html" }
+    ]
+  }
+// Later on we can figure out how to create a unique alias for each user: "alias": "[username]-virtual-fight-club"
