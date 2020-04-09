@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import context from '../context'
 import FightProfile from '../FightProfile/FightProfile'
 import './Fight.css'
+
 export default class Fight extends Component {
     static contextType = context;
     constructor(props){
@@ -14,9 +15,11 @@ export default class Fight extends Component {
             oppWins: [],
             oppLosses: [],
             winner:'',
+            currentButton: 'Fight'
         }
     }
-    
+    // how to create new opponent for every fight? 
+    // baybe hidden button shows after fight finishes as "next fight" and it calls new function createNewOpponent?
     componentDidMount(){
         
         // we have curent user, need to get character data on characters using context (user)
@@ -113,15 +116,31 @@ export default class Fight extends Component {
                 })
             }
         }
+        this.setState({
+            currentButton: 'Next Opponent'
+        })
+    }   
 
-    }
+    createNewOpponent(){
+        // after fight a new opponent should be generated from "next opponent" button
+        console.log(this.context)
+        const opponents = this.context.characters.filter(character => character.username !== this.context.user.username)
+        const opponent = opponents[Math.floor(Math.random()*Math.floor(opponents.length))]
 
-    coinFlip(){
-        return (
-            Math.floor((Math.random()*2)===0)
-            ? 'pysical' 
-            : 'mental'
-        )
+        const opponentWins = this.context.matches.filter(match=>match.winner === opponent.username);
+        const totalOppWins = opponentWins.length;
+        const opponentLosses = this.context.matches.filter(match=>match.loser === opponent.username);
+        const totalOppLosses = opponentLosses.length;
+
+        // setState
+        this.setState({
+            opponent: opponent,
+            oppWins: totalOppWins,
+            oppLosses: totalOppLosses
+        })
+        this.setState({
+            currentButton: 'Fight'
+        })
     }
 
     getDifference=(character,opponent)=>{
@@ -132,9 +151,38 @@ export default class Fight extends Component {
 
         return {strengthDiff, intelligenceDiff, charismaDiff, agilityDiff}
     }
+    
+    coinFlip(){
+        return (
+            Math.floor((Math.random()*2)===0)
+            ? 'pysical' 
+            : 'mental'
+        )
+    }
 
+    handleButtonClick = type => {
+        if (type === 'Fight') {
+            this.handleFight(this.state.character, this.state.opponent)
+        } else {
+            this.createNewOpponent()
+        }
+    }
 
     render(){
+
+        const button = this.state.currentButton === 'Fight' ? 
+            (<button 
+                onClick={() => this.handleButtonClick('Fight')}
+                id="fight"
+                >
+                FIGHT
+            </button> ):
+            (<button 
+                 onClick={() => this.handleButtonClick('Next Opponent')}
+                 id="next"
+             >
+                 Next Opponent
+             </button>);
         
         return(
             <div>
@@ -146,9 +194,7 @@ export default class Fight extends Component {
                     wins={this.state.charWins} 
                     losses={this.state.charLosses}/>
                 <div className="winner-button-display">
-                    <button onClick={()=>this.handleFight(this.state.character, this.state.opponent)}>
-                        FIGHT
-                    </button> 
+                    {button}
                     <p>{this.state.winner}</p>   
                 </div>
                 <FightProfile 
