@@ -16,7 +16,6 @@ export default class Login extends Component {
         // determine which input was changed and update state
         const value = e.target.value;
         const id = e.target.id;
-        console.log(value,id)
         if (id === 'login-username') {
             this.setState({
                 username: value
@@ -33,12 +32,11 @@ export default class Login extends Component {
     handleSubmit = e => {
         // call the one in context and pass the info from state
         e.preventDefault();
-        console.log(this.state)
         this.context.handleLoginSubmit(this.state.username,this.state.password)
     }
 
     render(){
-        console.log(this.context)
+
 
         const { username, password } = this.state;
 

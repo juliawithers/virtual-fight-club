@@ -3,122 +3,218 @@ import { Route, NavLink } from 'react-router-dom'
 import './App.css';
 import Character from './Character/Character'
 import Message from './Message/Message'
-import Login from './Login/Login'
+// import Login from './Login/Login'
 import HandleLanding from './HandleLanding/HandleLanding'
 import AboutGame from './AboutGame/AboutGame'
 import Fight from './Fight/Fight'
 import context from './context'
-import STORE from './STORE'
+import config from './config'
+// import STORE from './STORE'
 
-// maybe every 50 points they level up and get 10 points toward their character. How do I handle this and where? Points and level should probably be handled by context and the functions to handle the updates in App.vvv really just need to build my server first........
 
 export default class App extends Component {
   static contextType = context;
-  constructor(props){
+  // usernameErr and passwordErr to be replaced by error - from server?
+  constructor(props) {
     super(props);
-    this.state={
-      users: [],
+    this.state = {
       characters: [],
-      matches:[],
-      handleLoginSubmit: ()=>{},
-      handleSubmitUserInfo: ()=>{},
-      usernameErr:'',
-      passwordErr:'',
+      usernameErr: '',
+      passwordErr: '',
+      error: '',
       login: false,
-      user: '',
-      points: '',
+      auth: '',
+      username: '',
+      user_id: '',
+      character: '',
+      attrPoints: '',
       level: '',
-      attrPoints: ''
+      handleLoginSubmit: () => { },
+      submitUserInfo: () => { },
+      updateCharacter: () => { },
+      getCharacter: () => { },
+      getCharactersList: () => { },
+      error: '' 
     }
   }
-  
 
-  componentDidMount(){
+
+  componentDidMount() {
     // Do I need something on this function right now? 
-    const store = STORE;
-    console.log(store)
-    console.log(store.users)
-    
-    // fetch the data
-    // right now using STORE
-    this.setState({
-      users: store.users,
-      characters: store.characters,
-      matches: store.matches,
-    })
   }
 
 
-  handleLoginSubmit=(username,password)=>{
+  handleLoginSubmit = (username, password) => {
     console.log('handleLoginSubmit ran')
-    console.log('I wish git worked better')
-    const userName = username;
-    const passWord = password;
-    // need to verify username and password
-    // collect user information
-    // for right now this is how it needs to be laid out, but this code will have to be after authentication - not sure how to do that yet with the unique users.
 
-    const user = this.state.users.find(user => user.username === userName)
-    console.log(user)
-    if (!user){
-        this.setState({
-            usernameErr: `Could not find username ${userName}`
-        })
+    const object = {
+      username: username,
+      password: password
     }
-    else if (user.password !== passWord){
+    console.log(object)
+
+    fetch(config.API_LOGIN_ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify(object),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .then(data => {
+        console.log(data)
         this.setState({
-            passwordErr: `Password does not match, please try again`
+          login: data.login,
+          user_id: data.user.id,
+          username: data.user.username,
+          auth: data.user.auth,
+          character: this.getCharacter(this.login, this.user_id),
+          characters: this.getCharactersList(this.login, this.user_id)
         })
-    }    
-    else if (user.username === userName && user.password === passWord){
+      })
+      .catch(error => this.setState({ error }))
+
+  }
+
+  submitUserInfo = (object) => {
+    // create an account
+    const user_object = object;
+    console.log(user_object)
+    // handle new user information 
+    // Add route to character page
+    fetch(config.API_USERS_ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify(user_object),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .then(user => {
+        console.log(user)
+        this.setState({
+          auth: user.auth,
+          user_id: user.id,
+          username: user.username
+        })
+      })
+      .catch(error => this.setState({ error }))
+  }
+
+  updateCharacter = (character, reason) => {
+    // character can be updated by: 
+    // 'fight' : winning a match - might be character or opponent
+    // 'attributes' : updating attributes - will only be character
+    // 'create' : creating a character - login will still be false at this point
+
+    fetch(config.API_CHARACTERS_ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify(character),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `bearer ${config.API_KEY}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .catch(error => this.setState({ error }))
+
+    // must update character and characters 
+    if (reason === 'fight') {
+      //  get characters and character
+      this.setState({
+        character: this.getCharacter(this.state.login, this.state.user_id),
+        charcters: this.getCharactersList(this.state.login, this.state.user_id)
+      })
+    } else if (reason === 'attributes') {
+      //  get only character back
+      this.setState({
+        character: this.getCharacter(this.state.login, this.state.user_id)
+      })
+    } else if (reason === 'create') {
       this.setState({
         login: true,
-        user: user
+        character: this.getCharacter(this.state.login, this.state.user_id),
+        charcters: this.getCharactersList(this.state.login, this.state.user_id)
       })
     }
   }
-  
-  submitUserInfo=(e)=>{
-    e.preventDefault();
-    // handle new user information 
-    // route to character page
-  }
 
-
-  updateLevels(){
-    // would have to post this to server
-    // assume levels is stored in context along with points
-    // need to add attribute points to context as well
-    if (this.context.points%50 === 0){
-      const newLevel = (this.context.points/50);
-      const newAttrPoints = 10;
-      this.setState({
-        level: newLevel,
-        attrPoints: newAttrPoints
+  getCharacter = (login, user_id) => {
+    // this should get character by id
+    console.log('getCharacter ran')
+    fetch(config.API_CHARACTERS_ID_ENDPOINT + `?login=${login}&userId=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `bearer ${config.API_KEY}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
       })
-    }
-    // post these to server
+      .then(character => {
+        console.log(character)
+        return character[0]
+      })
+      .catch(error => this.setState({ error }))
   }
 
-  updatePoints(){
-    // would have to post this to server
+  getCharactersList = (login, user_id) => {
+    console.log('getCharactersList ran')
+    // this should get characters
+    fetch(config.API_CHARACTERS_ENDPOINT + `?login=${login}&userId=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Authorization': `bearer ${config.API_KEY}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .then(characters => {
+        console.log(characters)
+        return characters
+      })
+      .catch(error => this.setState({ error }))
   }
 
-  createNavRoutes(){
-    if (this.state.login === true){
-      return(
+  createNavRoutes() {
+    if (this.state.login === true) {
+      return (
         <div>
           <div>
-            <NavLink 
+            <NavLink
               className="nav-link"
               to="/aboutVFC">About</NavLink>
-            <NavLink 
+            <NavLink
               className="nav-link"
-              to={`/auth/:${this.state.user.username}/character`}>Character</NavLink>
-            <NavLink 
+              to={`/auth/:${this.state.character.char_name}/character`}>Character</NavLink>
+            <NavLink
               className="nav-linkk"
-              to="/fight">FIGHT!</NavLink>  
-          </div>  
+              to="/fight">FIGHT!</NavLink>
+          </div>
         </div>
       )
     } else {
@@ -128,76 +224,66 @@ export default class App extends Component {
     }
   }
 
-  createMainRoutes(){
-    return(
+  createMainRoutes() {
+    return (
       <>
-      <Route
-        exact
-        path="/"
-        component={HandleLanding}
-      />
-      <Route 
-        exact 
-        path="/message" 
-        component={Message}/>
-      <Route
-        exact
-        path="/auth/:user/register"
-        component={Character}
-      />
-      <Route
-        exact
-        path="/auth/:user/login"
-        component={Login}
-      />
-      <Route
-        exact
-        path="/aboutVFC"
-        component={AboutGame}
-      />
-      <Route
-        exact
-        path="/auth/:user/character"
-        component={Character}
-      />
-      <Route
-        exact
-        path="/fight"
-        component={Fight}
-      />
-      {/* have decided to put login and create account both on landing page as children components. still need to update logged in logic */}
+        <Route
+          exact
+          path="/"
+          component={HandleLanding}
+        />
+        <Route
+          exact
+          path="/message"
+          component={Message}
+        />
+        <Route
+          exact
+          path="/aboutVFC"
+          component={AboutGame}
+        />
+        <Route
+          exact
+          path="/auth/:user_id/character"
+          component={Character}
+        />
+        <Route
+          exact
+          path="/fight"
+          component={Fight}
+        />
       </>
     )
   }
 
-  render(){
-    
+  render() {
+
     const contextValue = {
-      users: this.state.users,
       characters: this.state.characters,
-      matches: this.state.matches,
       usernameErr: this.state.usernameErr,
       passwordErr: this.state.passwordErr,
       login: this.state.login,
-      user: this.state.user,
+      auth: this.state.auth,
+      username: this.state.username,
+      user_id: this.state.user_id,
+      character: this.state.character,
+      attrPoints: this.state.attrPoints,
+      level: this.state.level,
       handleLoginSubmit: this.handleLoginSubmit,
       submitUserInfo: this.submitUserInfo,
-
+      updateCharacter: () => { },
     }
-    
-    console.log(this.state)
     console.log(contextValue)
+
     return (
       <context.Provider value={contextValue}>
-        <div>
-          <body>
-            <nav role="navigation">{this.createNavRoutes()}</nav>
-            <main role="main">
-              {this.createMainRoutes()}
-            </main>
-            <footer role="content-info">Virtual Fight Club</footer>
-          </body>
-        </div>  
+        <body>
+          <nav role="navigation">{this.createNavRoutes()}</nav>
+          <main role="main">
+            {this.createMainRoutes()}
+          </main>
+          <footer role="content-info">Virtual Fight Club</footer>
+        </body>
       </context.Provider>
     )
   }

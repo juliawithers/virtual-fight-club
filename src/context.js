@@ -1,16 +1,16 @@
 import React from 'react'
 
 const context = React.createContext({
-  users:[],
   characters:[],
-  matches:[],
-  handleUpdateLoginLogic: () => {},
-  handleLoginSubmit: ()=>{},
-  handleSubmitUserInfo: ()=>{},
   usernameErr:'',
   passwordErr:'',
   login: false,
-  user: []
+  user_id: '',
+  character: {},
+  attrPoints: '',
+  level: '',
+  handleLoginSubmit: ()=>{},
+  handleSubmitUserInfo: ()=>{},
 })
 
 export default context
