@@ -33,13 +33,12 @@ export default class Login extends Component {
         // call the one in context and pass the info from state
         e.preventDefault();
         this.context.handleLoginSubmit(this.state.username,this.state.password)
+        // this.context.getCharacter(this.context.login, this.context.user_id)
+        // this.context.getCharactersList(this.context.login, this.context.user_id)
     }
 
     render(){
-
-
         const { username, password } = this.state;
-
         return(
             <section>
                 <h2>Login</h2>

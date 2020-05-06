@@ -29,20 +29,63 @@ export default class App extends Component {
       character: '',
       attrPoints: '',
       level: '',
+      opponent: {},
       handleLoginSubmit: () => { },
       submitUserInfo: () => { },
       updateCharacter: () => { },
       getCharacter: () => { },
       getCharactersList: () => { },
-      error: '' 
+      createNewOpponent: () => { },
+      error: ''
     }
   }
 
 
   componentDidMount() {
-    // Do I need something on this function right now? 
+    
+    // fetch the characters array
+    fetch(config.API_CHARACTERS_ENDPOINT, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Authorization': `bearer ${config.API_KEY}`
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(res.status)
+      }
+      return res.json()
+    })
+    .then(characters => {
+      console.log(characters)
+      
+      // console.log(opponent)
+      this.setState({
+        characters: characters.characters,
+        // opponent: opponent
+      })
+      
+    })
+    .catch(error => this.setState({ error }))
   }
+  // function to update new opponent after each match
+  createNewOpponent=(characters, userId)=>{
+    console.log('createNewOpponent ran')
+    const [ character ] = characters.filter(player => player.user_id === userId)
+    console.log(character)
+    const opponents = characters.filter(player => player.user_id !== character.user_id);
+    console.log(opponents)
 
+    const filteredOpponents = opponents.filter(char => char.current_level === character.current_level);
+    console.log(filteredOpponents)
+
+    const opponent = filteredOpponents[Math.floor(Math.random() * Math.floor(opponents.length))];
+    console.log(opponent)
+
+    return opponent
+
+  }
 
   handleLoginSubmit = (username, password) => {
     console.log('handleLoginSubmit ran')
@@ -68,21 +111,24 @@ export default class App extends Component {
       })
       .then(data => {
         console.log(data)
+        const opponent = this.createNewOpponent(this.state.characters, data.user.id)
+        console.log(opponent)
         this.setState({
           login: data.login,
           user_id: data.user.id,
           username: data.user.username,
-          auth: data.user.auth,
-          character: this.getCharacter(this.login, this.user_id),
-          characters: this.getCharactersList(this.login, this.user_id)
+          auth: data.auth,
+          opponent: opponent
         })
+        
       })
       .catch(error => this.setState({ error }))
-
+      
   }
 
   submitUserInfo = (object) => {
     // create an account
+    // not working because there is no auth token yet
     const user_object = object;
     console.log(user_object)
     // handle new user information 
@@ -109,6 +155,7 @@ export default class App extends Component {
         })
       })
       .catch(error => this.setState({ error }))
+
   }
 
   updateCharacter = (character, reason) => {
@@ -116,7 +163,7 @@ export default class App extends Component {
     // 'fight' : winning a match - might be character or opponent
     // 'attributes' : updating attributes - will only be character
     // 'create' : creating a character - login will still be false at this point
-
+    console.log(character)
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(character),
@@ -136,28 +183,28 @@ export default class App extends Component {
     // must update character and characters 
     if (reason === 'fight') {
       //  get characters and character
-      this.setState({
-        character: this.getCharacter(this.state.login, this.state.user_id),
-        charcters: this.getCharactersList(this.state.login, this.state.user_id)
-      })
+
+      this.getCharacter(this.state.user_id)
+      this.getCharactersList(this.state.user_id)
+
     } else if (reason === 'attributes') {
       //  get only character back
-      this.setState({
-        character: this.getCharacter(this.state.login, this.state.user_id)
-      })
+
+      this.getCharacter(this.state.user_id)
+
     } else if (reason === 'create') {
       this.setState({
-        login: true,
-        character: this.getCharacter(this.state.login, this.state.user_id),
-        charcters: this.getCharactersList(this.state.login, this.state.user_id)
+        login: true
       })
+      this.getCharacter(this.state.user_id)
+      this.getCharactersList()
     }
   }
 
-  getCharacter = (login, user_id) => {
+  getCharacter = (user_id) => {
     // this should get character by id
     console.log('getCharacter ran')
-    fetch(config.API_CHARACTERS_ID_ENDPOINT + `?login=${login}&userId=${user_id}`, {
+    fetch(config.API_CHARACTERS_ID_ENDPOINT + `?userId=${user_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -172,15 +219,17 @@ export default class App extends Component {
       })
       .then(character => {
         console.log(character)
-        return character[0]
+        this.setState({
+          character: character
+        })
       })
       .catch(error => this.setState({ error }))
   }
 
-  getCharactersList = (login, user_id) => {
+  getCharactersList = (user_id) => {
     console.log('getCharactersList ran')
     // this should get characters
-    fetch(config.API_CHARACTERS_ENDPOINT + `?login=${login}&userId=${user_id}`, {
+    fetch(config.API_CHARACTERS_ENDPOINT + `?userId=${user_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -195,7 +244,9 @@ export default class App extends Component {
       })
       .then(characters => {
         console.log(characters)
-        return characters
+        this.setState({
+          characters: characters.characters
+        })
       })
       .catch(error => this.setState({ error }))
   }
@@ -257,7 +308,10 @@ export default class App extends Component {
   }
 
   render() {
-
+    // const character = this.state.characters.filter(player => player.user_id === this.context.user_id);
+    // this.setState({
+    //   character: character
+    // })
     const contextValue = {
       characters: this.state.characters,
       usernameErr: this.state.usernameErr,
@@ -266,12 +320,16 @@ export default class App extends Component {
       auth: this.state.auth,
       username: this.state.username,
       user_id: this.state.user_id,
-      character: this.state.character,
+      character: this.state.characters.find(player => player.user_id === this.state.user_id),
       attrPoints: this.state.attrPoints,
       level: this.state.level,
+      opponent: this.state.opponent,
       handleLoginSubmit: this.handleLoginSubmit,
       submitUserInfo: this.submitUserInfo,
-      updateCharacter: () => { },
+      updateCharacter: this.updateCharacter,
+      getCharacter: this.getCharacter,
+      getCharactersList: this.getCharactersList,
+      createNewOpponent: this.createNewOpponent
     }
     console.log(contextValue)
 

@@ -1,3 +1,6 @@
+// FIGHT AND FIGHT PROFILE WORK!!!!!!!!
+// DON'T MESS WITH THIS!!!
+
 import React, { Component } from 'react'
 import context from '../context'
 import FightProfile from '../FightProfile/FightProfile'
@@ -10,11 +13,7 @@ export default class Fight extends Component {
         super(props);
         this.state = {
             character: [],
-            charWins: [],
-            charLosses: [],
             opponent: [],
-            oppWins: [],
-            oppLosses: [],
             winnerText: '',
             currentButton: 'Fight',
             char_1_id: '',
@@ -26,35 +25,16 @@ export default class Fight extends Component {
     }
 
     componentDidMount() {
-        const character = this.context.character;
-        const wins = character.wins;
-        const losses = character.losses;
-        const character_level = character.current_level;
+        const character = this.context.character;        
+        const opponent = this.context.opponent;
 
-        console.log(character)
-        
-        // must find random characeter that is not self to fight
-        // filter for all but current user
-        const opponents = this.context.characters.filter(player => player.user_id !== this.context.user.id);
-        const filteredOpponents = opponents.filter(char => char.current_level === character_level);
-        const opponent = filteredOpponents[Math.floor(Math.random() * Math.floor(opponents.length))];
-
-        console.log(opponent)
-
-        const opponentWins = opponent.wins;
-        const opponentLosses = opponent.losses;
-        console.log(character)
-        console.log(opponent)
-        // setState
         this.setState({
             character: character,
-            charWins: wins,
-            charLosses: losses,
             opponent: opponent,
-            oppWins: opponentWins,
-            oppLosses: opponentLosses
         })
     }
+
+
 
     handleFight = (character, opponent) => {
         // this will determine the outcome of the fight
@@ -76,9 +56,9 @@ export default class Fight extends Component {
                 // add points on server side to user
                 // update wins
                 // pass points, update wins/losses, record winners and losers, 
-                character.current_points = character.current_points + 2;
-                character.wins = character.wins + 1;
-                opponent.losses = opponent.losses + 1;
+                character.current_points = Number(character.current_points) + 2;
+                character.wins = Number(character.wins) + 1;
+                opponent.losses = Number(opponent.losses) + 1;
                 this.setState({
                     winnerText: character.char_name + ' Wins!',
                     winner: character,
@@ -86,12 +66,23 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+                this.context.updateCharacter(character,'fight')
+                this.context.updateCharacter(opponent,'fight')  
+                const matchObject = {
+                    winner: character.char_name,
+                    loser: opponent.char_name,
+                    char_1_id: character.id,
+                    char_2_id: opponent.id,
+                    points: 2
+                }
+                console.log(matchObject)
+                this.updateMatches(matchObject)
             }
             else if (userRoll < oppRoll) {
                 // update losses
-                opponent.current_points = opponent.current_points + 2;
-                opponent.wins = opponent.wins + 1;
-                character.losses = character.losses + 1;
+                opponent.current_points = Number(opponent.current_points) + 2;
+                opponent.wins = Number(opponent.wins) + 1;
+                character.losses = Number(character.losses) + 1;
                 this.setState({
                     winnerText: opponent.char_name + ' Wins!',
                     winner: opponent,
@@ -99,6 +90,17 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+                this.context.updateCharacter(character,'fight')
+                this.context.updateCharacter(opponent,'fight') 
+                const matchObject = {
+                    winner: opponent.char_name,
+                    loser: character.char_name,
+                    char_1_id: character.id,
+                    char_2_id: opponent.id,
+                    points: 2
+                }
+                console.log(matchObject)
+                this.updateMatches(matchObject)
             }
             else if (userRoll === oppRoll) {
                 this.setState({
@@ -120,9 +122,9 @@ export default class Fight extends Component {
             if (userRoll > oppRoll) {
                 // add points on server side to user
                 // update wins
-                character.current_points = character.current_points + 2;
-                character.wins = character.wins + 1;
-                opponent.losses = opponent.losses + 1;
+                character.current_points = Number(character.current_points) + 2;
+                character.wins = Number(character.wins) + 1;
+                opponent.losses = Number(opponent.losses) + 1;
                 this.setState({
                     winnerText: character.char_name + ' Wins!',
                     winner: character,
@@ -130,12 +132,23 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+                this.context.updateCharacter(character,'fight')
+                this.context.updateCharacter(opponent,'fight') 
+                const matchObject = {
+                    winner: character.char_name,
+                    loser: opponent.char_name,
+                    char_1_id: character.id,
+                    char_2_id: opponent.id,
+                    points: 2
+                }
+                console.log(matchObject)
+                this.updateMatches(matchObject)
             }
             else if (userRoll < oppRoll) {
                 // update losses
-                opponent.current_points = opponent.current_points + 2;
-                opponent.wins = opponent.wins + 1;
-                character.losses = character.losses + 1;
+                opponent.current_points = Number(opponent.current_points) + 2;
+                opponent.wins = Number(opponent.wins) + 1;
+                character.losses = Number(character.losses) + 1;
                 this.setState({
                     winnerText: opponent.char_name + ' Wins!',
                     winner: opponent,
@@ -143,6 +156,17 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+                this.context.updateCharacter(character,'fight')
+                this.context.updateCharacter(opponent,'fight') 
+                const matchObject = {
+                    winner: opponent.char_name,
+                    loser: character.char_name,
+                    char_1_id: character.id,
+                    char_2_id: opponent.id,
+                    points: 2
+                }
+                console.log(matchObject)
+                this.updateMatches(matchObject)
             }
             else if (userRoll === oppRoll) {
                 this.setState({
@@ -152,32 +176,16 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+
             }
         }
         this.setState({
             currentButton: 'Next Opponent'
         })
-        
 
-        // this should be a handler in context sent to App to update character information. 
-        if (this.state.winner !== 'none') {
-            this.context.updateCharacter(this.state.winner,'fight')
-            this.context.updateCharacter(this.state.loser,'fight')    
-        }
-        
-        // can update matches here, doesn't need to be in app
-        const matchObject = {
-            winner: this.state.winner,
-            loser: this.state.loser,
-            char_1_id: this.state.char_1_id,
-            char_2_id: this.state.char_2_id,
-            points: 2
-        }
-        this.updateMatches(matchObject)
     }
 
     updateMatches(matchObject) {
-        // update matches
         fetch(config.API_MATCHES_ENDPOINT, {
             method: 'POST',
             body: JSON.stringify(matchObject),
@@ -195,20 +203,12 @@ export default class Fight extends Component {
             .catch(error => this.setState({ error }))
     }
 
-    createNewOpponent() {
+    updateNewOpponent() {
         // after fight a new opponent should be generated from "next opponent" button
-        console.log(this.context)
-
-        const opponents = this.context.characters.filter(player => player.user_id !== this.context.user.id)
-        const filteredOpponents = opponents.filter(char => char.current_level === this.state.character.current_level)
-        const opponent = filteredOpponents[Math.floor(Math.random() * Math.floor(opponents.length))]
-        const opponentWins = opponent.wins;
-        const opponentLosses = opponent.losses;
-        // setState
+        const opponent = this.context.createNewOpponent(this.context.characters, this.context.user_id);
+      
         this.setState({
             opponent: opponent,
-            oppWins: opponentWins,
-            oppLosses: opponentLosses,
             currentButton: 'Fight'
         })
     }
@@ -234,7 +234,7 @@ export default class Fight extends Component {
         if (type === 'Fight') {
             this.handleFight(this.state.character, this.state.opponent)
         } else {
-            this.createNewOpponent()
+            this.updateNewOpponent()
         }
     }
 
@@ -259,19 +259,14 @@ export default class Fight extends Component {
                     <h1>Fight Your Opponent!</h1>
                 </header>
                 <FightProfile
-                    character={this.state.character}
-                    wins={this.state.charWins}
-                    losses={this.state.charLosses} />
+                    character={this.context.character} />
 
                 <div className="winner-button-display">
                     {button}
-                    <p>{this.state.winner}</p>
+                    <p>{this.state.winnerText}</p>
                 </div>
                 <FightProfile
-                    character={this.state.opponent}
-                    wins={this.state.oppWins}
-                    losses={this.state.oppLosses}
-                />
+                    character={this.state.opponent} />
             </div>
         )
     }
