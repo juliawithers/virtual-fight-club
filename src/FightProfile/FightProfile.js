@@ -4,6 +4,7 @@ export default class FightProfile extends Component {
 
     render(){
         const character = this.props.character;
+        console.log(character)
         return(
             <section className="character">
                 <h2>{character.char_name} || Wins: {character.wins} - Losses: {character.losses}</h2>

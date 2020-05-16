@@ -5,12 +5,21 @@ const context = React.createContext({
   usernameErr:'',
   passwordErr:'',
   login: false,
+  auth: '',
+  username: '',
   user_id: '',
   character: {},
   attrPoints: '',
   level: '',
+  opponent: {},
   handleLoginSubmit: ()=>{},
-  handleSubmitUserInfo: ()=>{},
+  submitUserInfo: ()=>{},
+  getCharacter: ()=>{},
+  getCharacterList: ()=>{},
+  createNewOpponent: ()=>{},
+  deleteCharacter:()=>{},
+  deleteUser:()=>{},
+  createCharacter: ()=>{}
 })
 
 export default context

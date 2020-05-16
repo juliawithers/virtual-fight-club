@@ -11,19 +11,21 @@ export default class CharacterUpdate extends Component {
             updIntelligence: '',
             updCharisma: '',
             updAgility: '',
-            attr_points: '',
+            attrPoints: '',
             message: ''
         }
     }
 
     componentDidMount() {
+        console.log(this.context.character.attrpoints)
         this.setState({
-            attr_points: this.context.character.attr_points
+            attrPoints: Number(this.context.character.attrpoints)
         })
     }
 
     handleErrors() {
-        if (this.state.attrPoints < 0) {
+        const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
+        if (total > this.state.attrPoints) {
             this.setState({
                 message: 'Sorry, you ran out of attribute points to distribute'
             })
@@ -33,7 +35,7 @@ export default class CharacterUpdate extends Component {
     submitUpdatedAttributes = e => {
         e.preventDefault();
         this.handleErrors();
-        // post this
+  
         const character = {
             ...this.context.character,
             strength: this.state.updStrength,
@@ -41,40 +43,60 @@ export default class CharacterUpdate extends Component {
             charisma: this.state.updCharisma,
             agility: this.state.updAgility
         }
+        console.log(character)
         this.context.updateCharacter(character, 'attributes')
     }
 
     updateAttributes = e => {
         console.log(this.context)
         const value = parseInt(e.target.value);
+        console.log(typeof(value))
         const id = e.target.id;
         console.log(value, id)
 
-        if (id === 'strength') {
+        if (isNaN(value)) {
+            if (id === 'strength') {
+                this.setState({
+                    updStrength:'',
+                })
+            }
+            if (id === 'intelligence') {
+                this.setState({
+                    updIntelligence: '',
+                })
+            }
+            if (id === 'charisma') {
+                this.setState({
+                    updCharisma: '',
+                })
+            }
+            if (id === 'agility') {
+                this.setState({
+                    updAgility: '',
+                })
+            }
             this.setState({
-                updStrength: value + this.context.character.strength,
-                attr_points: this.state.attr_points - value
+                message: 'Your entry must be a valid number' 
             })
         }
-        if (id === 'intelligence') {
-
+        else if (id === 'strength') {
             this.setState({
-                updIntelligence: value + this.context.character.intelligence,
-                attr_points: this.state.attr_points - value
+                updStrength: value + Number(this.context.character.strength),
             })
         }
-        if (id === 'charisma') {
-
+        else if (id === 'intelligence') {
             this.setState({
-                updCharisma: value + this.context.character.charisma,
-                attr_points: this.state.attr_points - value
+                updIntelligence: value + Number(this.context.character.intelligence),
             })
         }
-        if (id === 'agility') {
-
+        else if (id === 'charisma') {
             this.setState({
-                updAgility: value + this.context.character.agility,
-                attr_points: this.state.attr_points - value
+                updCharisma: value + Number(this.context.character.charisma),
+            })
+        }
+        else if (id === 'agility') {
+            this.setState({
+                updAgility: value + Number(this.context.character.agility),
             })
         }
     }
@@ -84,24 +106,23 @@ export default class CharacterUpdate extends Component {
         return (
             <form onSubmit={this.submitUpdatedAttributes}>
                 <h2>Update attributes:</h2>
-                <p>10 points to distribute</p>
-                <p>Points left: {this.state.attr_points}</p>
+                <p>Points to distrubute: {this.state.attrPoints}</p>
                 <ValidateUpdate message={this.state.message} />
                 <div>
-                    <label htmlFor="strength">Strength</label>
-                    <input onChange={this.updateAttributes} type="strength" name='strength' id='strength' value={strength} />
+                    <label htmlFor="strength">Strength: </label>
+                    <input onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
                     <p>Projected: {this.state.updStrength}</p>
                     <br />
-                    <label htmlFor="intelligence">Intelligence</label>
-                    <input onChange={this.updateAttributes} type="intelligence" name='intelligence' id='intelligence' value={intelligence} />
+                    <label htmlFor="intelligence">Intelligence: </label>
+                    <input onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
                     <p>Projected: {this.state.updIntelligence}</p>
                     <br />
-                    <label htmlFor="charisma">Charisma</label>
-                    <input onChange={this.updateAttributes} type="charisma" name='charisma' id='charisma' value={charisma} />
+                    <label htmlFor="charisma">Charisma: </label>
+                    <input onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
                     <p>Projected: {this.state.updCharisma}</p>
                     <br />
-                    <label htmlFor="agility">Agility</label>
-                    <input onChange={this.updateAttributes} type="agility" name='agility' id='agility' value={agility} />
+                    <label htmlFor="agility">Agility: </label>
+                    <input onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
                     <p>Projected: {this.state.updAgility}</p>
                     <br />
                 </div>

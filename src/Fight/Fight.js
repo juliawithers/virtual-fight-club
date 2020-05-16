@@ -1,6 +1,3 @@
-// FIGHT AND FIGHT PROFILE WORK!!!!!!!!
-// DON'T MESS WITH THIS!!!
-
 import React, { Component } from 'react'
 import context from '../context'
 import FightProfile from '../FightProfile/FightProfile'
@@ -25,7 +22,7 @@ export default class Fight extends Component {
     }
 
     componentDidMount() {
-        const character = this.context.character;        
+        const character = this.context.character;
         const opponent = this.context.opponent;
 
         this.setState({
@@ -34,16 +31,11 @@ export default class Fight extends Component {
         })
     }
 
-
-
     handleFight = (character, opponent) => {
-        // this will determine the outcome of the fight
-        // need to update points when done with fight, then level if we keep it
         const { strengthDiff, intelligenceDiff, charismaDiff, agilityDiff } = this.getDifference(character, opponent);
         const physicalDiffs = strengthDiff + agilityDiff;
         const mentalDiffs = intelligenceDiff + charismaDiff;
 
-        // flip for physical or mental fight:
         const coin = this.coinFlip();
         const randomFactorUser = Math.floor((Math.random() * 5) + 1);
         const randomFactorOpp = Math.floor((Math.random() * 5) + 1);
@@ -53,9 +45,6 @@ export default class Fight extends Component {
             let oppRoll = physicalDiffs * 0.5 + mentalDiffs * 0.3 + randomFactorOpp * 0.2;
 
             if (userRoll > oppRoll) {
-                // add points on server side to user
-                // update wins
-                // pass points, update wins/losses, record winners and losers, 
                 character.current_points = Number(character.current_points) + 2;
                 character.wins = Number(character.wins) + 1;
                 opponent.losses = Number(opponent.losses) + 1;
@@ -66,8 +55,8 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-                this.context.updateCharacter(character,'fight')
-                this.context.updateCharacter(opponent,'fight')  
+                this.context.updateCharacter(character, 'fight')
+                this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
                     winner: character.char_name,
                     loser: opponent.char_name,
@@ -75,7 +64,6 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                console.log(matchObject)
                 this.updateMatches(matchObject)
             }
             else if (userRoll < oppRoll) {
@@ -90,8 +78,8 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-                this.context.updateCharacter(character,'fight')
-                this.context.updateCharacter(opponent,'fight') 
+                this.context.updateCharacter(character, 'fight')
+                this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
                     winner: opponent.char_name,
                     loser: character.char_name,
@@ -99,7 +87,6 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                console.log(matchObject)
                 this.updateMatches(matchObject)
             }
             else if (userRoll === oppRoll) {
@@ -111,17 +98,12 @@ export default class Fight extends Component {
                     char_2_id: opponent.id
                 })
             }
-
         }
         if (coin === 'mental') {
             let userRoll = physicalDiffs * 0.3 + mentalDiffs * 0.5 + randomFactorUser * 0.2;
             let oppRoll = physicalDiffs * 0.3 + mentalDiffs * 0.5 + randomFactorOpp * 0.2;
 
-            console.log(userRoll, oppRoll)
-
             if (userRoll > oppRoll) {
-                // add points on server side to user
-                // update wins
                 character.current_points = Number(character.current_points) + 2;
                 character.wins = Number(character.wins) + 1;
                 opponent.losses = Number(opponent.losses) + 1;
@@ -132,8 +114,8 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-                this.context.updateCharacter(character,'fight')
-                this.context.updateCharacter(opponent,'fight') 
+                this.context.updateCharacter(character, 'fight')
+                this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
                     winner: character.char_name,
                     loser: opponent.char_name,
@@ -141,11 +123,9 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                console.log(matchObject)
                 this.updateMatches(matchObject)
             }
             else if (userRoll < oppRoll) {
-                // update losses
                 opponent.current_points = Number(opponent.current_points) + 2;
                 opponent.wins = Number(opponent.wins) + 1;
                 character.losses = Number(character.losses) + 1;
@@ -156,8 +136,8 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-                this.context.updateCharacter(character,'fight')
-                this.context.updateCharacter(opponent,'fight') 
+                this.context.updateCharacter(character, 'fight')
+                this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
                     winner: opponent.char_name,
                     loser: character.char_name,
@@ -165,7 +145,6 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                console.log(matchObject)
                 this.updateMatches(matchObject)
             }
             else if (userRoll === oppRoll) {
@@ -176,13 +155,11 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-
             }
         }
         this.setState({
             currentButton: 'Next Opponent'
         })
-
     }
 
     updateMatches(matchObject) {
@@ -191,7 +168,6 @@ export default class Fight extends Component {
             body: JSON.stringify(matchObject),
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': `bearer ${config.API_KEY}`
             }
         })
             .then(res => {
@@ -204,9 +180,8 @@ export default class Fight extends Component {
     }
 
     updateNewOpponent() {
-        // after fight a new opponent should be generated from "next opponent" button
         const opponent = this.context.createNewOpponent(this.context.characters, this.context.user_id);
-      
+
         this.setState({
             opponent: opponent,
             currentButton: 'Fight'
@@ -239,7 +214,8 @@ export default class Fight extends Component {
     }
 
     render() {
-
+        console.log(this.state.opponent)
+        console.log(this.context.character)
         const button = this.state.currentButton === 'Fight' ?
             (<button
                 onClick={() => this.handleButtonClick('Fight')}

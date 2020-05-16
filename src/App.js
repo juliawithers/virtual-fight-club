@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, withRouter } from 'react-router-dom'
 import './App.css';
 import Character from './Character/Character'
 import Message from './Message/Message'
-// import Login from './Login/Login'
 import HandleLanding from './HandleLanding/HandleLanding'
 import AboutGame from './AboutGame/AboutGame'
 import Fight from './Fight/Fight'
 import context from './context'
 import config from './config'
-// import STORE from './STORE'
 
+// Add Logout button - ternary while login = true at footer
+// make sure update character is working
+// check the pathways for login, create, fight, update
 
-export default class App extends Component {
+class App extends Component {
   static contextType = context;
-  // usernameErr and passwordErr to be replaced by error - from server?
   constructor(props) {
     super(props);
     this.state = {
@@ -36,19 +36,15 @@ export default class App extends Component {
       getCharacter: () => { },
       getCharactersList: () => { },
       createNewOpponent: () => { },
-      error: ''
+      createCharacter: ()=>{},
     }
   }
 
-
   componentDidMount() {
-    
-    // fetch the characters array
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-        // 'Authorization': `bearer ${config.API_KEY}`
       }
     })
     .then(res => {
@@ -58,33 +54,25 @@ export default class App extends Component {
       return res.json()
     })
     .then(characters => {
-      console.log(characters)
-      
-      // console.log(opponent)
       this.setState({
-        characters: characters.characters,
-        // opponent: opponent
+        characters: characters,
       })
-      
     })
     .catch(error => this.setState({ error }))
   }
-  // function to update new opponent after each match
+
   createNewOpponent=(characters, userId)=>{
     console.log('createNewOpponent ran')
-    const [ character ] = characters.filter(player => player.user_id === userId)
-    console.log(character)
-    const opponents = characters.filter(player => player.user_id !== character.user_id);
+
+    const character = characters.filter(player => player.user_id === userId)
+    console.log(character[0])
+    const opponents = characters.filter(player => player.user_id !== character[0].user_id);
     console.log(opponents)
-
-    const filteredOpponents = opponents.filter(char => char.current_level === character.current_level);
+    const filteredOpponents = opponents.filter(char => char.current_level === character[0].current_level);
     console.log(filteredOpponents)
-
     const opponent = filteredOpponents[Math.floor(Math.random() * Math.floor(opponents.length))];
     console.log(opponent)
-
     return opponent
-
   }
 
   handleLoginSubmit = (username, password) => {
@@ -94,8 +82,6 @@ export default class App extends Component {
       username: username,
       password: password
     }
-    console.log(object)
-
     fetch(config.API_LOGIN_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(object),
@@ -110,14 +96,12 @@ export default class App extends Component {
         return res.json()
       })
       .then(data => {
-        console.log(data)
         const opponent = this.createNewOpponent(this.state.characters, data.user.id)
-        console.log(opponent)
         this.setState({
           login: data.login,
           user_id: data.user.id,
           username: data.user.username,
-          auth: data.auth,
+          auth: data.user.auth,
           opponent: opponent
         })
         
@@ -127,12 +111,8 @@ export default class App extends Component {
   }
 
   submitUserInfo = (object) => {
-    // create an account
-    // not working because there is no auth token yet
     const user_object = object;
-    console.log(user_object)
-    // handle new user information 
-    // Add route to character page
+  
     fetch(config.API_USERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(user_object),
@@ -147,29 +127,23 @@ export default class App extends Component {
         return res.json()
       })
       .then(user => {
-        console.log(user)
         this.setState({
           auth: user.auth,
           user_id: user.id,
           username: user.username
         })
+        this.props.history.push(`/auth/${this.state.user_id}/character`)
       })
       .catch(error => this.setState({ error }))
 
   }
 
-  updateCharacter = (character, reason) => {
-    // character can be updated by: 
-    // 'fight' : winning a match - might be character or opponent
-    // 'attributes' : updating attributes - will only be character
-    // 'create' : creating a character - login will still be false at this point
-    console.log(character)
+  createCharacter = (character) =>{
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(character),
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -180,35 +154,41 @@ export default class App extends Component {
       })
       .catch(error => this.setState({ error }))
 
-    // must update character and characters 
-    if (reason === 'fight') {
-      //  get characters and character
+    this.getCharacter(this.context.user_id)
+    this.getCharactersList()    
+  }
 
-      this.getCharacter(this.state.user_id)
-      this.getCharactersList(this.state.user_id)
-
-    } else if (reason === 'attributes') {
-      //  get only character back
-
-      this.getCharacter(this.state.user_id)
-
-    } else if (reason === 'create') {
-      this.setState({
-        login: true
+  updateCharacter = (character, reason) => {
+    console.log('updateCharacter ran')
+    
+    fetch(config.API_CHARACTERS_ENDPOINT, {
+      method: 'PATCH',
+      body: JSON.stringify(character),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
       })
-      this.getCharacter(this.state.user_id)
+      .catch(error => this.setState({ error }))
+    if (reason === 'fight') {
+      this.getCharacter(this.context.user_id)
       this.getCharactersList()
-    }
+    } else if (reason === 'attributes') {
+      this.getCharacter(this.context.user_id)
+    } 
   }
 
   getCharacter = (user_id) => {
-    // this should get character by id
     console.log('getCharacter ran')
-    fetch(config.API_CHARACTERS_ID_ENDPOINT + `?userId=${user_id}`, {
+    fetch(config.API_CHARACTERS_ENDPOINT +`/${user_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -218,7 +198,6 @@ export default class App extends Component {
         return res.json()
       })
       .then(character => {
-        console.log(character)
         this.setState({
           character: character
         })
@@ -226,14 +205,12 @@ export default class App extends Component {
       .catch(error => this.setState({ error }))
   }
 
-  getCharactersList = (user_id) => {
+  getCharactersList = () => {
     console.log('getCharactersList ran')
-    // this should get characters
-    fetch(config.API_CHARACTERS_ENDPOINT + `?userId=${user_id}`, {
+    fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-        // 'Authorization': `bearer ${config.API_KEY}`
       }
     })
       .then(res => {
@@ -243,13 +220,53 @@ export default class App extends Component {
         return res.json()
       })
       .then(characters => {
-        console.log(characters)
         this.setState({
-          characters: characters.characters
+          characters: characters
         })
       })
       .catch(error => this.setState({ error }))
   }
+
+  deleteCharacter=(charId)=>{
+    console.log('deleteCharacter ran')
+    fetch(config.API_CHARACTERS_ENDPOINT, {
+      method: 'DELETE',
+      body: JSON.stringify(charId),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .catch(error => this.setState({ error }))
+
+  }
+
+  deleteUser=(userId)=>{
+    console.log('deleteUser ran')
+    fetch(config.API_USERS_ENDPOINT, {
+      method: 'DELETE',
+      body: JSON.stringify(userId),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .catch(error => this.setState({ error }))
+      this.setState({
+        login: false
+      })
+  }
+
 
   createNavRoutes() {
     if (this.state.login === true) {
@@ -308,10 +325,6 @@ export default class App extends Component {
   }
 
   render() {
-    // const character = this.state.characters.filter(player => player.user_id === this.context.user_id);
-    // this.setState({
-    //   character: character
-    // })
     const contextValue = {
       characters: this.state.characters,
       usernameErr: this.state.usernameErr,
@@ -329,7 +342,10 @@ export default class App extends Component {
       updateCharacter: this.updateCharacter,
       getCharacter: this.getCharacter,
       getCharactersList: this.getCharactersList,
-      createNewOpponent: this.createNewOpponent
+      createNewOpponent: this.createNewOpponent,
+      deleteCharacter: this.deleteCharacter,
+      deleteUser: this.deleteUser,
+      createCharacter: this.createCharacter,
     }
     console.log(contextValue)
 
@@ -346,3 +362,6 @@ export default class App extends Component {
     )
   }
 }
+
+
+export default withRouter(App)

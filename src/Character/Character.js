@@ -11,61 +11,59 @@ export default class Character extends Component {
         this.state = {
             character: [],
             formLogic: false,
-            wins: '',
-            losses: ''
         }
     }
-    
-    // pull from db, update context with this users information, need logic to change from false to true for character created.
 
     componentDidMount(){
         console.log('component mounted')
         console.log(this.context)
-        const character = this.context.characters.find(character => character.user_id === this.context.user_id);
-        
-        const wins = character.wins;
-        const losses = character.losses;
-
-        if (character.char_name.length > 0) {
-            this.setState({
-                character: character,
-                wins: wins,
-                losses: losses
-            })
-        } else if (character.char_name.length === 0){
-            this.setState({
-                formLogic: true
-            })
-        }
+        const character = this.context.character
+        this.setState({
+            character: character,
+        })
         console.log(this.state)
     }
 
-    // need to pass a handler down to update and to create 
-    // need to pass character attributes as props to description
+    handleDeleteCharacter=()=>{
+        console.log('handleDeleteCharacter ran')
+        this.context.deleteCharacter(this.state.character.id)
+        this.setState({
+            formLogic: true
+        })
+    }
 
-    render(){
-        console.log(this.state)
-        if (!this.state.character){
-            return null 
-        }  
+    handleDeleteUser=()=>{
+        console.log('handleDeleteUser ran')
+        this.context.deleteUser(this.context.user_id)
+    }
+
+    render(){ 
         return(
             <div>
                 <header role="banner">
                 <h1>
-                    {this.state.formLogic === true
+                    {this.context.character === undefined
                     ? 'Create your Character!'
-                    : this.state.character.char_name
+                    : this.context.character.char_name
                     }
                     </h1>
                 </header>
-                
-                {this.state.formLogic === true
+                {this.context.character === undefined
                 ? <CharacterCreate/>
                 : <section>
-                    <CharacterDescription char={this.state}/>
-                    <CharacterUpdate char={this.state}/>  
+                    <CharacterDescription char={this.context.character}/>
+                    <CharacterUpdate char={this.context.character}/>  
                   </section>}
-                
+                <button
+                    onClick={this.handleDeleteCharacter}
+                >
+                    delete character?
+                </button>
+                <button
+                    onClick={this.handleDeleteUser}
+                >
+                    delete account?
+                </button>
             </div>
         )
     }

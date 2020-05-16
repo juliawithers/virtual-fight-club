@@ -12,19 +12,20 @@ export default class CharacterCreate extends Component {
             updIntelligence: '',
             updCharisma: '',
             updAgility: '',
-            attr_points: '',
+            attrpoints: '',
             message: ''
         }
     }
 
     componentDidMount() {
+        console.log('character create componentDidMount Ran')
         this.setState({
-            attr_points: 10
+            attrpoints: 10
         })
     }
 
     handleErrors() {
-        if (this.state.attr_points < 0) {
+        if (this.state.attrpoints < 0) {
             this.setState({
                 message: 'Sorry, you ran out of attribute points to distribute'
             })
@@ -34,11 +35,12 @@ export default class CharacterCreate extends Component {
     submitUpdatedAttributes = e => {
         e.preventDefault();
         this.handleErrors();
-        // post this
+        console.log('submit character ran')
+    
         const character = {
-            auth: this.context.user.auth,
-            username: this.context.user.username,
-            user_id: this.context.user.user_id,
+            auth: this.context.auth,
+            username: this.context.username,
+            user_id: this.context.user_id,
             char_name: this.state.char_name,
             strength: this.state.updStrength,
             intelligence: this.state.updIntelligence,
@@ -48,42 +50,37 @@ export default class CharacterCreate extends Component {
             current_points: 0,
             wins: 0,
             losses: 0,
-            attr_points: this.state.attr_points
+            attrpoints: this.state.attrpoints
         }
-        this.context.updateCharacter(character, 'attributes')
+        this.context.createCharacter(character)
     }
 
     updateAttributes = e => {
-        console.log(this.context)
-        const value = parseInt(e.target.value);
+        const value = e.target.value;
         const id = e.target.id;
-        console.log(value, id)
 
         if (id === 'strength') {
             this.setState({
-                updStrength: value,
-                attr_points: this.state.attr_points - value
+                updStrength: parseInt(value),
+                attrpoints: this.state.attrpoints - parseInt(value)
             })
         }
         if (id === 'intelligence') {
-
             this.setState({
-                updIntelligence: value,
-                attr_points: this.state.attr_points - value
+                updIntelligence: parseInt(value),
+                attrpoints: this.state.attrpoints - parseInt(value)
             })
         }
         if (id === 'charisma') {
-
             this.setState({
-                updCharisma: value,
-                attr_points: this.state.attr_points - value
+                updCharisma: parseInt(value),
+                attrpoints: this.state.attrpoints - parseInt(value)
             })
         }
         if (id === 'agility') {
-
             this.setState({
-                updAgility: value,
-                attr_points: this.state.attr_points - value
+                updAgility: parseInt(value),
+                attrpoints: this.state.attrpoints - parseInt(value)
             })
         }
         if (id === 'character-name') {
@@ -100,7 +97,7 @@ export default class CharacterCreate extends Component {
             <form onSubmit={this.submitUpdatedAttributes}>
                 <h2>Create Your Character!:</h2>
                 <p>10 points to distribute</p>
-                <p>Points left: {this.state.attr_points}</p>
+                <p>Points left: {this.state.attrpoints}</p>
                 <ValidateCreate message={this.state.message} />
                 <h2>Name your character:</h2>
                 <label htmlFor="character-name">Choose character name:</label>
