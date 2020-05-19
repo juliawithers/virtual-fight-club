@@ -28,11 +28,8 @@ class CharacterUpdate extends Component {
         const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
         const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
 
-        console.log('total= '+total)
-        console.log('original= '+original)
-
         const diff = total - original;
-        console.log(diff)
+
         if (diff > this.state.attrpoints) {
             this.setState({
                 message: 'Sorry, you ran out of attribute points to distribute'
@@ -52,10 +49,9 @@ class CharacterUpdate extends Component {
         const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
      
         const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
-        console.log('total= '+total)
-        console.log('original= '+original)
+       
         const diff = total - original;
-        console.log(diff)
+ 
         const newAttributepoints = Number(this.context.character.attrpoints) - diff;
 
         const character = {
@@ -66,14 +62,26 @@ class CharacterUpdate extends Component {
             agility: this.state.updAgility,
             attrpoints: newAttributepoints
         }
+        this.setState({
+            attrpoints: newAttributepoints
+        })
+        
         this.context.updateCharacter(character, 'attributes')
-        this.props.history.push(`/auth/${this.context.character.user_id}/character`)
+        
         var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
-                if (elements[i].type === "text") {
-                    elements[i].value = "";
-                }
+        for (var i=0; i < elements.length; i++) {
+            if (elements[i].type === "number") {
+                elements[i].value = "";
             }
+        }
+        this.setState({
+            updStrength: '',
+            updIntelligence: '',
+            updCharisma: '',
+            updAgility: '',
+            message: 'Updated!'            
+        })
+        this.props.history.push(`/auth/${this.context.character.user_id}/character`)
     }
 
     updateAttributes = e => {      

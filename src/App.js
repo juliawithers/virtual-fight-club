@@ -10,9 +10,8 @@ import context from './context'
 import config from './config'
 
 // check the pathways for login, create, fight, update
-// navigation is not showing up all the time, need to fix this
-// for some reason, when the points get to 100, it updates once to level 2 then back down to level 1. Database shows level 1, perhaps it gets reset by client side ?
-// update character doesn't refresh the page, it will update in the database, but I will have to figure out a refresh or some sort of re-route 
+// for some reason, when the points get to 100, it updates once to level 2 then back down to level 1. Database shows level 1, perhaps it gets reset by client side ? this occurs at every level update. level remains at 1.
+// when I logout without a character created I cannot log back in correctly.
 
 class App extends Component {
   static contextType = context;
@@ -65,7 +64,7 @@ class App extends Component {
   createNewOpponent = (characters, userId) => {
     console.log('createNewOpponent ran')
  
-    const opponents = characters.filter(player => player.user_id !== this.state.character.user_id);
+    const opponents = characters.filter(player => player.user_id !== userId);
 
     const opponent = opponents[Math.floor(Math.random() * Math.floor(opponents.length))];  
     return opponent
@@ -94,7 +93,19 @@ class App extends Component {
       .then(data => {
         const opponent = this.createNewOpponent(this.state.characters, data.user.id)
         const character = this.state.characters.find(player => player.user_id === data.user.id)
-        this.setState({
+
+        if (character === undefined) {
+          this.setState({
+            login: data.login,
+            user_id: data.user.id,
+            username: data.user.username,
+            auth: data.user.auth,
+            opponent: opponent,
+            character: [],
+            attrpoints: ''
+          })
+        } else {
+          this.setState({
             login: data.login,
             user_id: data.user.id,
             username: data.user.username,
@@ -102,7 +113,9 @@ class App extends Component {
             opponent: opponent,
             character: character,
             attrpoints: character.attrpoints
-          })
+          })  
+        }
+        
       })
       .catch(error => this.setState({ error }))
   }
@@ -176,7 +189,6 @@ class App extends Component {
       })
       .catch(error => this.setState({ error }))
     if (reason === 'fight') {
-      console.log(character)
       this.getCharacter(this.state.character.user_id)
       this.getCharactersList()
     } else if (reason === 'attributes') {

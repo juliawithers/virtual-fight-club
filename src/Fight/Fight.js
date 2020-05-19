@@ -184,7 +184,8 @@ export default class Fight extends Component {
 
         this.setState({
             opponent: opponent,
-            currentButton: 'Fight'
+            currentButton: 'Fight',
+            winnerText: ' '
         })
     }
 
@@ -214,9 +215,6 @@ export default class Fight extends Component {
     }
 
     render() {
-
-        // console.log(this.state.opponent)
-        console.log(this.context.character)
         const button = this.state.currentButton === 'Fight' ?
             (<button
                 onClick={() => this.handleButtonClick('Fight')}
