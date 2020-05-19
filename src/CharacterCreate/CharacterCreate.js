@@ -27,8 +27,19 @@ export default class CharacterCreate extends Component {
     handleErrors() {
         if (this.state.attrpoints < 0) {
             this.setState({
-                message: 'Sorry, you ran out of attribute points to distribute'
+                message: 'Sorry, you ran out of attribute points to distribute',
+                updStrength: '',
+                updIntelligence: '',
+                updCharisma: '',
+                updAgility: '',
+                attrpoints: this.context.attrpoints,
             })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+            if (elements[i].type === "text") {
+                elements[i].value = "";
+            }
+            }
         }
     }
 
@@ -52,7 +63,7 @@ export default class CharacterCreate extends Component {
             losses: 0,
             attrpoints: this.state.attrpoints
         }
-        this.context.createCharacter(character)
+        this.context.createCharacter(character);
     }
 
     updateAttributes = e => {
@@ -97,7 +108,6 @@ export default class CharacterCreate extends Component {
             <form onSubmit={this.submitUpdatedAttributes}>
                 <h2>Create Your Character!:</h2>
                 <p>10 points to distribute</p>
-                <p>Points left: {this.state.attrpoints}</p>
                 <ValidateCreate message={this.state.message} />
                 <h2>Name your character:</h2>
                 <label htmlFor="character-name">Choose character name:</label>
@@ -105,16 +115,16 @@ export default class CharacterCreate extends Component {
                 <h2>Select attribute distribution:</h2>
                 <div>
                     <label htmlFor="strength">Strength</label>
-                    <input onChange={this.updateAttributes} type="strength" name='strength' id='strength' value={strength} />
+                    <input onChange={this.updateAttributes} type="text" name='strength' id='strength' value={strength} />
                     <br />
                     <label htmlFor="intelligence">Intelligence</label>
-                    <input onChange={this.updateAttributes} type="intelligence" name='intelligence' id='intelligence' value={intelligence} />
+                    <input onChange={this.updateAttributes} type="text" name='intelligence' id='intelligence' value={intelligence} />
                     <br />
                     <label htmlFor="charisma">Charisma</label>
-                    <input onChange={this.updateAttributes} type="charisma" name='charisma' id='charisma' value={charisma} />
+                    <input onChange={this.updateAttributes} type="text" name='charisma' id='charisma' value={charisma} />
                     <br />
                     <label htmlFor="agility">Agility</label>
-                    <input onChange={this.updateAttributes} type="agility" name='agility' id='agility' value={agility} />
+                    <input onChange={this.updateAttributes} type="text" name='agility' id='agility' value={agility} />
                     <br />
                 </div>
                 <button type='submit'>CREATE</button>

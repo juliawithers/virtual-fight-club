@@ -9,11 +9,8 @@ export default class Login extends Component {
         username: '',
         password: ''
     }
-    // two functions to grab the inputs- change the state
 
-    // at least onChange on both inputs
     handleChangeInput = e => {
-        // determine which input was changed and update state
         const value = e.target.value;
         const id = e.target.id;
         if (id === 'login-username') {
@@ -28,13 +25,9 @@ export default class Login extends Component {
         }
     }
 
-    // create handler here for submission to call handleLoginSubmit
     handleSubmit = e => {
-        // call the one in context and pass the info from state
         e.preventDefault();
         this.context.handleLoginSubmit(this.state.username,this.state.password)
-        // this.context.getCharacter(this.context.login, this.context.user_id)
-        // this.context.getCharactersList(this.context.login, this.context.user_id)
     }
 
     render(){

@@ -13,7 +13,6 @@ export default class CreateAccount extends Component {
     // validate username and password creation
     sendUserData = (e) => {
         e.preventDefault();
-        console.log(this.state)
         const object = {
             username: this.state.username,
             passw: this.state.password

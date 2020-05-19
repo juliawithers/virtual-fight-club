@@ -9,9 +9,10 @@ import Fight from './Fight/Fight'
 import context from './context'
 import config from './config'
 
-// Add Logout button - ternary while login = true at footer
-// make sure update character is working
 // check the pathways for login, create, fight, update
+// navigation is not showing up all the time, need to fix this
+// for some reason, when the points get to 100, it updates once to level 2 then back down to level 1. Database shows level 1, perhaps it gets reset by client side ?
+// update character doesn't refresh the page, it will update in the database, but I will have to figure out a refresh or some sort of re-route 
 
 class App extends Component {
   static contextType = context;
@@ -27,7 +28,7 @@ class App extends Component {
       username: '',
       user_id: '',
       character: '',
-      attrPoints: '',
+      attrpoints: '',
       level: '',
       opponent: {},
       handleLoginSubmit: () => { },
@@ -36,7 +37,7 @@ class App extends Component {
       getCharacter: () => { },
       getCharactersList: () => { },
       createNewOpponent: () => { },
-      createCharacter: ()=>{},
+      createCharacter: () => { },
     }
   }
 
@@ -47,31 +48,26 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(res.status)
-      }
-      return res.json()
-    })
-    .then(characters => {
-      this.setState({
-        characters: characters,
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
       })
-    })
-    .catch(error => this.setState({ error }))
+      .then(characters => {
+        this.setState({
+          characters: characters,
+        })
+      })
+      .catch(error => this.setState({ error }))
   }
 
-  createNewOpponent=(characters, userId)=>{
+  createNewOpponent = (characters, userId) => {
     console.log('createNewOpponent ran')
+ 
+    const opponents = characters.filter(player => player.user_id !== this.state.character.user_id);
 
-    const character = characters.filter(player => player.user_id === userId)
-    console.log(character[0])
-    const opponents = characters.filter(player => player.user_id !== character[0].user_id);
-    console.log(opponents)
-    const filteredOpponents = opponents.filter(char => char.current_level === character[0].current_level);
-    console.log(filteredOpponents)
-    const opponent = filteredOpponents[Math.floor(Math.random() * Math.floor(opponents.length))];
-    console.log(opponent)
+    const opponent = opponents[Math.floor(Math.random() * Math.floor(opponents.length))];  
     return opponent
   }
 
@@ -97,22 +93,23 @@ class App extends Component {
       })
       .then(data => {
         const opponent = this.createNewOpponent(this.state.characters, data.user.id)
+        const character = this.state.characters.find(player => player.user_id === data.user.id)
         this.setState({
-          login: data.login,
-          user_id: data.user.id,
-          username: data.user.username,
-          auth: data.user.auth,
-          opponent: opponent
-        })
-        
+            login: data.login,
+            user_id: data.user.id,
+            username: data.user.username,
+            auth: data.user.auth,
+            opponent: opponent,
+            character: character,
+            attrpoints: character.attrpoints
+          })
       })
       .catch(error => this.setState({ error }))
-      
   }
 
   submitUserInfo = (object) => {
     const user_object = object;
-  
+
     fetch(config.API_USERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(user_object),
@@ -130,15 +127,15 @@ class App extends Component {
         this.setState({
           auth: user.auth,
           user_id: user.id,
-          username: user.username
+          username: user.username,
+          login: true
         })
-        this.props.history.push(`/auth/${this.state.user_id}/character`)
       })
       .catch(error => this.setState({ error }))
-
   }
-
-  createCharacter = (character) =>{
+ 
+  createCharacter = (character) => {
+    this.getCharactersList()
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(character),
@@ -152,15 +149,18 @@ class App extends Component {
         }
         return res.json()
       })
+      .then(character => {
+        this.setState({
+          character: character,
+          attrpoints: Number(character.attrpoints)
+        })
+      })
       .catch(error => this.setState({ error }))
-
-    this.getCharacter(this.context.user_id)
-    this.getCharactersList()    
   }
 
   updateCharacter = (character, reason) => {
     console.log('updateCharacter ran')
-    
+   
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'PATCH',
       body: JSON.stringify(character),
@@ -176,16 +176,18 @@ class App extends Component {
       })
       .catch(error => this.setState({ error }))
     if (reason === 'fight') {
-      this.getCharacter(this.context.user_id)
+      console.log(character)
+      this.getCharacter(this.state.character.user_id)
       this.getCharactersList()
     } else if (reason === 'attributes') {
-      this.getCharacter(this.context.user_id)
-    } 
+      this.getCharacter(this.state.character.user_id)
+    }
   }
 
   getCharacter = (user_id) => {
     console.log('getCharacter ran')
-    fetch(config.API_CHARACTERS_ENDPOINT +`/${user_id}`, {
+ 
+    fetch(config.API_CHARACTERS_ENDPOINT + `/${user_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -198,6 +200,7 @@ class App extends Component {
         return res.json()
       })
       .then(character => {
+ 
         this.setState({
           character: character
         })
@@ -227,7 +230,7 @@ class App extends Component {
       .catch(error => this.setState({ error }))
   }
 
-  deleteCharacter=(charId)=>{
+  deleteCharacter = (charId) => {
     console.log('deleteCharacter ran')
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'DELETE',
@@ -246,7 +249,7 @@ class App extends Component {
 
   }
 
-  deleteUser=(userId)=>{
+  deleteUser = (userId) => {
     console.log('deleteUser ran')
     fetch(config.API_USERS_ENDPOINT, {
       method: 'DELETE',
@@ -262,27 +265,35 @@ class App extends Component {
         return res.json()
       })
       .catch(error => this.setState({ error }))
-      this.setState({
-        login: false
-      })
+    this.setState({
+      login: false
+    })
   }
 
+  handleLogout = () => {
+    this.setState({
+      login: false,
+      character: []
+    })
+    this.props.history.push('/')
+  }
 
   createNavRoutes() {
     if (this.state.login === true) {
       return (
         <div>
-          <div>
-            <NavLink
-              className="nav-link"
-              to="/aboutVFC">About</NavLink>
-            <NavLink
-              className="nav-link"
-              to={`/auth/:${this.state.character.char_name}/character`}>Character</NavLink>
-            <NavLink
-              className="nav-linkk"
-              to="/fight">FIGHT!</NavLink>
-          </div>
+          <NavLink
+            className="nav-link"
+            to="/aboutVFC">About</NavLink>
+          <NavLink
+            className="nav-link"
+            to={`/auth/:${this.state.character.char_name}/character`}>Character</NavLink>
+          <NavLink
+            className="nav-link"
+            to="/fight">FIGHT!</NavLink>
+          <button className="logout" onClick={this.handleLogout}>
+            Logout
+          </button>
         </div>
       )
     } else {
@@ -325,6 +336,7 @@ class App extends Component {
   }
 
   render() {
+    
     const contextValue = {
       characters: this.state.characters,
       usernameErr: this.state.usernameErr,
@@ -333,8 +345,8 @@ class App extends Component {
       auth: this.state.auth,
       username: this.state.username,
       user_id: this.state.user_id,
-      character: this.state.characters.find(player => player.user_id === this.state.user_id),
-      attrPoints: this.state.attrPoints,
+      character: this.state.character,
+      attrpoints: this.state.attrpoints,
       level: this.state.level,
       opponent: this.state.opponent,
       handleLoginSubmit: this.handleLoginSubmit,

@@ -23,7 +23,7 @@ export default class Fight extends Component {
 
     componentDidMount() {
         const character = this.context.character;
-        const opponent = this.context.opponent;
+        const opponent = this.context.createNewOpponent(this.context.characters, this.context.character.user_id)
 
         this.setState({
             character: character,
@@ -214,7 +214,8 @@ export default class Fight extends Component {
     }
 
     render() {
-        console.log(this.state.opponent)
+
+        // console.log(this.state.opponent)
         console.log(this.context.character)
         const button = this.state.currentButton === 'Fight' ?
             (<button

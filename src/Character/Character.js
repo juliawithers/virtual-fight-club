@@ -16,12 +16,10 @@ export default class Character extends Component {
 
     componentDidMount(){
         console.log('component mounted')
-        console.log(this.context)
         const character = this.context.character
         this.setState({
             character: character,
         })
-        console.log(this.state)
     }
 
     handleDeleteCharacter=()=>{
@@ -42,13 +40,13 @@ export default class Character extends Component {
             <div>
                 <header role="banner">
                 <h1>
-                    {this.context.character === undefined
+                    {this.context.character.char_name === undefined
                     ? 'Create your Character!'
                     : this.context.character.char_name
                     }
                     </h1>
                 </header>
-                {this.context.character === undefined
+                {this.context.character.char_name === undefined
                 ? <CharacterCreate/>
                 : <section>
                     <CharacterDescription char={this.context.character}/>

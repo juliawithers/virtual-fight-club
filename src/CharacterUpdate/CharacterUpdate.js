@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+
 import ValidateUpdate from './ValidateUpdate'
 import context from '../context'
 
-export default class CharacterUpdate extends Component {
+class CharacterUpdate extends Component {
     static contextType = context;
     constructor(props) {
         super(props);
@@ -11,48 +13,72 @@ export default class CharacterUpdate extends Component {
             updIntelligence: '',
             updCharisma: '',
             updAgility: '',
-            attrPoints: '',
+            attrpoints: '',
             message: ''
         }
     }
 
     componentDidMount() {
-        console.log(this.context.character.attrpoints)
         this.setState({
-            attrPoints: Number(this.context.character.attrpoints)
+            attrpoints: Number(this.context.character.attrpoints)
         })
     }
 
     handleErrors() {
         const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
-        if (total > this.state.attrPoints) {
+        const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
+
+        console.log('total= '+total)
+        console.log('original= '+original)
+
+        const diff = total - original;
+        console.log(diff)
+        if (diff > this.state.attrpoints) {
             this.setState({
                 message: 'Sorry, you ran out of attribute points to distribute'
             })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "text") {
+                    elements[i].value = "";
+                }
+            }
         }
     }
 
     submitUpdatedAttributes = e => {
         e.preventDefault();
         this.handleErrors();
-  
+        const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
+     
+        const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
+        console.log('total= '+total)
+        console.log('original= '+original)
+        const diff = total - original;
+        console.log(diff)
+        const newAttributepoints = Number(this.context.character.attrpoints) - diff;
+
         const character = {
             ...this.context.character,
             strength: this.state.updStrength,
             intelligence: this.state.updIntelligence,
             charisma: this.state.updCharisma,
-            agility: this.state.updAgility
+            agility: this.state.updAgility,
+            attrpoints: newAttributepoints
         }
-        console.log(character)
         this.context.updateCharacter(character, 'attributes')
+        this.props.history.push(`/auth/${this.context.character.user_id}/character`)
+        var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "text") {
+                    elements[i].value = "";
+                }
+            }
     }
 
-    updateAttributes = e => {
-        console.log(this.context)
-        const value = parseInt(e.target.value);
-        console.log(typeof(value))
+    updateAttributes = e => {      
+        const value = parseInt(e.target.value);     
         const id = e.target.id;
-        console.log(value, id)
 
         if (isNaN(value)) {
             if (id === 'strength') {
@@ -106,7 +132,7 @@ export default class CharacterUpdate extends Component {
         return (
             <form onSubmit={this.submitUpdatedAttributes}>
                 <h2>Update attributes:</h2>
-                <p>Points to distrubute: {this.state.attrPoints}</p>
+                <p>Points to distrubute: {this.state.attrpoints}</p>
                 <ValidateUpdate message={this.state.message} />
                 <div>
                     <label htmlFor="strength">Strength: </label>
@@ -131,3 +157,5 @@ export default class CharacterUpdate extends Component {
         )
     }
 }
+
+export default withRouter(CharacterUpdate)
