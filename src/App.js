@@ -11,7 +11,6 @@ import config from './config'
 
 // check the pathways for login, create, fight, update
 // for some reason, when the points get to 100, it updates once to level 2 then back down to level 1. Database shows level 1, perhaps it gets reset by client side ? this occurs at every level update. level remains at 1.
-// when I logout without a character created I cannot log back in correctly.
 
 class App extends Component {
   static contextType = context;

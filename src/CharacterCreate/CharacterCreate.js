@@ -32,7 +32,7 @@ export default class CharacterCreate extends Component {
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                attrpoints: this.context.attrpoints,
+                attrpoints: this.state.attrpoints,
             })
             var elements = document.getElementsByTagName("input");
             for (var i=0; i < elements.length; i++) {
@@ -40,8 +40,11 @@ export default class CharacterCreate extends Component {
                     elements[i].value = "";
                 }
             }
-            
             return 'no' 
+        } else if (this.state.char_name === ''){
+            this.setState({
+                message: 'you must enter a character name'
+            })
         } else {
             return 'yes'
         }
@@ -78,34 +81,65 @@ export default class CharacterCreate extends Component {
         const id = e.target.id;
 
         if (id === 'strength') {
-            this.setState({
-                updStrength: parseInt(value),
-                attrpoints: this.state.attrpoints - parseInt(value)
-            })
+            if (value === '') {
+                this.setState({
+                    updStrength: 0,
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })    
+            } else {
+                this.setState({
+                    updStrength: parseInt(value),
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })
+            } 
         }
         if (id === 'intelligence') {
-            this.setState({
-                updIntelligence: parseInt(value),
-                attrpoints: this.state.attrpoints - parseInt(value)
-            })
+            if (value === '') {
+                this.setState({
+                    updIntelligence: 0,
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })
+            } else {
+                this.setState({
+                    updIntelligence: parseInt(value),
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })    
+            }  
         }
         if (id === 'charisma') {
-            this.setState({
-                updCharisma: parseInt(value),
-                attrpoints: this.state.attrpoints - parseInt(value)
-            })
+            if (value === '') {
+                this.setState({
+                    updCharisma: 0,
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })    
+            } else {
+                this.setState({
+                    updCharisma: parseInt(value),
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })    
+            }
         }
         if (id === 'agility') {
-            this.setState({
-                updAgility: parseInt(value),
-                attrpoints: this.state.attrpoints - parseInt(value)
-            })
+            if (value === '') {
+                this.setState({
+                    updAgility: 0,
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })    
+            } else {
+                this.setState({
+                    updAgility: parseInt(value),
+                    attrpoints: this.state.attrpoints - parseInt(value)
+                })    
+            }   
         }
         if (id === 'character-name') {
             this.setState({
                 char_name: value
             })
         }
+        this.setState({
+            message: ''
+        })
     }
 
 
