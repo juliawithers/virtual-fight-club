@@ -18,7 +18,6 @@ export default class CharacterCreate extends Component {
     }
 
     componentDidMount() {
-        console.log('character create componentDidMount Ran')
         this.setState({
             attrpoints: 10
         })
@@ -54,7 +53,6 @@ export default class CharacterCreate extends Component {
 
     submitUpdatedAttributes = e => {
         e.preventDefault();
-        console.log('submit character ran')
         const check = this.handleErrors();
         if (check === 'no') {
             return
@@ -76,13 +74,11 @@ export default class CharacterCreate extends Component {
             }
             this.context.createCharacter(character);    
         }
-        console.log(this.state.attrpoints)
     }
 
     updateAttributes = e => {
         const value = e.target.value;
         const id = e.target.id;
-        console.log(this.state.attrpoints)
         if (id === 'strength') {
             if (value === '') {
                 this.setState({

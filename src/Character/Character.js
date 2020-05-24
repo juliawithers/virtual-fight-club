@@ -15,7 +15,6 @@ export default class Character extends Component {
     }
 
     componentDidMount(){
-        console.log('component mounted')
         const character = this.context.character
         this.setState({
             character: character,
@@ -23,7 +22,6 @@ export default class Character extends Component {
     }
 
     handleDeleteCharacter=()=>{
-        console.log('handleDeleteCharacter ran')
         this.context.deleteCharacter(this.state.character.id)
         this.setState({
             formLogic: true
@@ -31,7 +29,6 @@ export default class Character extends Component {
     }
 
     handleDeleteUser=()=>{
-        console.log('handleDeleteUser ran')
         this.context.deleteUser(this.context.user_id)
     }
 

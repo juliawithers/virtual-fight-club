@@ -61,8 +61,7 @@ class App extends Component {
   }
 
   createNewOpponent = (characters, userId) => {
-    console.log('createNewOpponent ran')
- 
+
     const opponents = characters.filter(player => player.user_id !== userId);
 
     const opponent = opponents[Math.floor(Math.random() * Math.floor(opponents.length))];  
@@ -70,8 +69,6 @@ class App extends Component {
   }
 
   handleLoginSubmit = (username, password) => {
-    console.log('handleLoginSubmit ran')
-
     const object = {
       username: username,
       password: password
@@ -85,7 +82,6 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          // console.log('error')
           throw new Error(res.status)
         }
         return res.json()
@@ -118,7 +114,6 @@ class App extends Component {
         
       })
       .catch(error => {
-        console.log(error)
         this.setState({
           error: 'Password or Username is incorrect, please verify login information'
         })
@@ -154,7 +149,6 @@ class App extends Component {
  
   createCharacter = (character) => {
     this.getCharactersList()
-    console.log('createCharacter, character = '+character)
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(character),
@@ -178,7 +172,6 @@ class App extends Component {
   }
 
   updateCharacter = (character, reason) => {
-    console.log('updateCharacter ran')
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'PATCH',
       body: JSON.stringify(character),
@@ -201,9 +194,7 @@ class App extends Component {
     }
   }
 
-  getCharacter = (user_id) => {
-    console.log('getCharacter ran')
- 
+  getCharacter = (user_id) => { 
     fetch(config.API_CHARACTERS_ENDPOINT + `/${user_id}`, {
       method: 'GET',
       headers: {
@@ -225,7 +216,6 @@ class App extends Component {
   }
 
   getCharactersList = () => {
-    console.log('getCharactersList ran')
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'GET',
       headers: {
@@ -247,7 +237,6 @@ class App extends Component {
   }
 
   deleteCharacter = (charId) => {
-    console.log('deleteCharacter ran')
     const idObject = {id: charId};
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'DELETE',
@@ -267,7 +256,6 @@ class App extends Component {
   }
 
   deleteUser = (userId) => {
-    console.log('deleteUser ran')
     const idObject = {id: userId}
     fetch(config.API_USERS_ENDPOINT, {
       method: 'DELETE',
@@ -380,7 +368,6 @@ class App extends Component {
       createCharacter: this.createCharacter,
       error: this.state.error
     }
-    console.log(contextValue)
 
     return (
       <context.Provider value={contextValue}>
