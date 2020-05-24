@@ -32,6 +32,7 @@ export default class Login extends Component {
 
     render(){
         const { username, password } = this.state;
+        console.log(this.context.error)
         return(
             <section>
                 <h2>Login</h2>
@@ -39,14 +40,13 @@ export default class Login extends Component {
                     <div>
                         <label htmlFor="login-username">Username: </label>
                         <input onChange={this.handleChangeInput} type="text" name='login-username' id='login-username' value={username} />
-                        <ValidateLogin message={this.context.usernameErr}/>
                     </div>
                     <div>
                         <label htmlFor="login-password">Password: </label>
                         <input onChange={this.handleChangeInput}type="password" name='login-password' id='login-password'
                         value={password} />
-                        <ValidateLogin message={this.context.passwordErr}/>
                     </div>
+                    <ValidateLogin message={this.context.error}/>
                     <button type='submit'>Login</button>
                 </form>
             </section>

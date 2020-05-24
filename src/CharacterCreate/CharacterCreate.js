@@ -25,14 +25,16 @@ export default class CharacterCreate extends Component {
     }
 
     handleErrors() {
-        if (this.state.attrpoints < 0) {
+        const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
+
+        if (total > 10) {
             this.setState({
                 message: 'Sorry, you ran out of attribute points to distribute',
                 updStrength: '',
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                attrpoints: this.state.attrpoints,
+                attrpoints: 10,
             })
             var elements = document.getElementsByTagName("input");
             for (var i=0; i < elements.length; i++) {
@@ -74,22 +76,21 @@ export default class CharacterCreate extends Component {
             }
             this.context.createCharacter(character);    
         }
+        console.log(this.state.attrpoints)
     }
 
     updateAttributes = e => {
         const value = e.target.value;
         const id = e.target.id;
-
+        console.log(this.state.attrpoints)
         if (id === 'strength') {
             if (value === '') {
                 this.setState({
                     updStrength: 0,
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })    
             } else {
                 this.setState({
-                    updStrength: parseInt(value),
-                    attrpoints: this.state.attrpoints - parseInt(value)
+                    updStrength: parseInt(value)
                 })
             } 
         }
@@ -97,12 +98,10 @@ export default class CharacterCreate extends Component {
             if (value === '') {
                 this.setState({
                     updIntelligence: 0,
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })
             } else {
                 this.setState({
                     updIntelligence: parseInt(value),
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })    
             }  
         }
@@ -110,12 +109,10 @@ export default class CharacterCreate extends Component {
             if (value === '') {
                 this.setState({
                     updCharisma: 0,
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })    
             } else {
                 this.setState({
                     updCharisma: parseInt(value),
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })    
             }
         }
@@ -123,12 +120,10 @@ export default class CharacterCreate extends Component {
             if (value === '') {
                 this.setState({
                     updAgility: 0,
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })    
             } else {
                 this.setState({
                     updAgility: parseInt(value),
-                    attrpoints: this.state.attrpoints - parseInt(value)
                 })    
             }   
         }

@@ -55,6 +55,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+                console.log('fight= '+character)
                 this.context.updateCharacter(character, 'fight')
                 this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
@@ -78,6 +79,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+                console.log('fight= '+character)
                 this.context.updateCharacter(character, 'fight')
                 this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
@@ -114,6 +116,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+               
                 this.context.updateCharacter(character, 'fight')
                 this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {
@@ -136,6 +139,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
+               
                 this.context.updateCharacter(character, 'fight')
                 this.context.updateCharacter(opponent, 'fight')
                 const matchObject = {

@@ -9,8 +9,8 @@ import Fight from './Fight/Fight'
 import context from './context'
 import config from './config'
 
-// check the pathways for login, create, fight, update
-// for some reason, when the points get to 100, it updates once to level 2 then back down to level 1. Database shows level 1, perhaps it gets reset by client side ? this occurs at every level update. level remains at 1.
+// auth tokens 
+// style
 
 class App extends Component {
   static contextType = context;
@@ -25,7 +25,7 @@ class App extends Component {
       auth: '',
       username: '',
       user_id: '',
-      character: '',
+      character: {},
       attrpoints: '',
       level: '',
       opponent: {},
@@ -85,6 +85,7 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
+          // console.log('error')
           throw new Error(res.status)
         }
         return res.json()
@@ -116,7 +117,12 @@ class App extends Component {
         }
         
       })
-      .catch(error => this.setState({ error }))
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          error: 'Password or Username is incorrect, please verify login information'
+        })
+      })
   }
 
   submitUserInfo = (object) => {
@@ -148,6 +154,7 @@ class App extends Component {
  
   createCharacter = (character) => {
     this.getCharactersList()
+    console.log('createCharacter, character = '+character)
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(character),
@@ -172,7 +179,6 @@ class App extends Component {
 
   updateCharacter = (character, reason) => {
     console.log('updateCharacter ran')
-   
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'PATCH',
       body: JSON.stringify(character),
@@ -211,7 +217,6 @@ class App extends Component {
         return res.json()
       })
       .then(character => {
- 
         this.setState({
           character: character
         })
@@ -243,9 +248,10 @@ class App extends Component {
 
   deleteCharacter = (charId) => {
     console.log('deleteCharacter ran')
+    const idObject = {id: charId};
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'DELETE',
-      body: JSON.stringify(charId),
+      body: JSON.stringify(idObject),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -262,9 +268,10 @@ class App extends Component {
 
   deleteUser = (userId) => {
     console.log('deleteUser ran')
+    const idObject = {id: userId}
     fetch(config.API_USERS_ENDPOINT, {
       method: 'DELETE',
-      body: JSON.stringify(userId),
+      body: JSON.stringify(idObject),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -273,12 +280,14 @@ class App extends Component {
         if (!res.ok) {
           throw new Error(res.status)
         }
+
+        this.setState({
+          login: false
+        })
+        this.props.history.push('/')
         return res.json()
       })
       .catch(error => this.setState({ error }))
-    this.setState({
-      login: false
-    })
   }
 
   handleLogout = () => {
@@ -369,6 +378,7 @@ class App extends Component {
       deleteCharacter: this.deleteCharacter,
       deleteUser: this.deleteUser,
       createCharacter: this.createCharacter,
+      error: this.state.error
     }
     console.log(contextValue)
 
