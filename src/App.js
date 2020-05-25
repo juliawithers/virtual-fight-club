@@ -57,7 +57,10 @@ class App extends Component {
           characters: characters,
         })
       })
-      .catch(error => this.setState({ error }))
+      .catch(error => {
+        console.log(error)
+        this.setState({ error })
+      })
   }
 
   createNewOpponent = (characters, userId) => {
