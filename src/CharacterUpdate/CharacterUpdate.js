@@ -19,6 +19,7 @@ class CharacterUpdate extends Component {
     }
 
     componentDidMount() {
+        
         this.setState({
             attrpoints: Number(this.context.character.attrpoints)
         })
