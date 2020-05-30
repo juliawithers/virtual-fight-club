@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "alias": "vfc",
+    "alias": "my-vfc",
     "name": "virtual-fight-club",
     "routes": [
       {
