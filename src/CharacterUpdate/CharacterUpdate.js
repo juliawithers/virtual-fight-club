@@ -136,9 +136,21 @@ class CharacterUpdate extends Component {
         }
     }
 
+    handleDeleteCharacter=()=>{
+        this.context.deleteCharacter(this.state.character.id)
+        this.setState({
+            formLogic: true
+        })
+    }
+
+    handleDeleteUser=()=>{
+        this.context.deleteUser(this.context.user_id)
+    }
+    
     render() {
         const { strength, intelligence, charisma, agility } = this.state
         return (
+        <div>
             <form onSubmit={this.submitUpdatedAttributes}>
                 <h2>Update attributes:</h2>
                 <p>Points to distrubute: {this.state.attrpoints}</p>
@@ -163,6 +175,17 @@ class CharacterUpdate extends Component {
                 </div>
                 <button type='submit'>UPDATE</button>
             </form>
+            <button
+                onClick={this.handleDeleteCharacter}
+            >
+                delete character?
+            </button>
+            <button
+                onClick={this.handleDeleteUser}
+            >
+                delete account?
+            </button>
+        </div>
         )
     }
 }

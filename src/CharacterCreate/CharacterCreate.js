@@ -133,6 +133,9 @@ export default class CharacterCreate extends Component {
         })
     }
 
+    handleDeleteUser=()=>{
+        this.context.deleteUser(this.context.user_id)
+    }
 
     render() {
         const { character_name, strength, intelligence, charisma, agility } = this.state
@@ -145,6 +148,7 @@ export default class CharacterCreate extends Component {
                 <label htmlFor="character-name">Choose character name:</label>
                 <input onChange={this.updateAttributes} type="name" name="character-name" id="character-name" value={character_name} />
                 <h2>Select attribute distribution:</h2>
+                <p>Please fill out all attributes, otherwise your character will not be created.</p>
                 <div>
                     <label htmlFor="strength">Strength</label>
                     <input onChange={this.updateAttributes} type="text" name='strength' id='strength' value={strength} />
@@ -160,6 +164,11 @@ export default class CharacterCreate extends Component {
                     <br />
                 </div>
                 <button type='submit'>CREATE</button>
+                <button
+                    onClick={this.handleDeleteUser}
+                >
+                    delete account?
+                </button>
             </form>
         )
     }

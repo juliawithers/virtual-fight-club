@@ -9,8 +9,6 @@ import Fight from './Fight/Fight'
 import context from './context'
 import config from './config'
 
-// auth tokens 
-// style
 
 class App extends Component {
   static contextType = context;
@@ -175,6 +173,8 @@ class App extends Component {
   }
 
   updateCharacter = (character, reason) => {
+    console.log(character.wins)
+    console.log(character.losses)
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'PATCH',
       body: JSON.stringify(character),

@@ -21,17 +21,6 @@ export default class Character extends Component {
         })
     }
 
-    handleDeleteCharacter=()=>{
-        this.context.deleteCharacter(this.state.character.id)
-        this.setState({
-            formLogic: true
-        })
-    }
-
-    handleDeleteUser=()=>{
-        this.context.deleteUser(this.context.user_id)
-    }
-
     render(){ 
         return(
             <div>
@@ -49,16 +38,6 @@ export default class Character extends Component {
                     <CharacterDescription char={this.context.character}/>
                     <CharacterUpdate char={this.context.character}/>  
                   </section>}
-                <button
-                    onClick={this.handleDeleteCharacter}
-                >
-                    delete character?
-                </button>
-                <button
-                    onClick={this.handleDeleteUser}
-                >
-                    delete account?
-                </button>
             </div>
         )
     }
