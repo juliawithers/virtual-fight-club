@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import context from '../context'
+import ValidateCreateAccount from './ValidateCreateAccount';
 
 export default class CreateAccount extends Component {
     static contextType = context;
@@ -11,8 +12,24 @@ export default class CreateAccount extends Component {
         }
     }
     // validate username and password creation
+    handleUserInputErrors = () => {
+        const username = this.state.username;
+        const password = this.state.password;
+        const validateText = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        if (!password.match(validateText)) {
+            this.setState({
+                message: 'Password must be between 7 and 15 characters, and include at least one digit, and one special character'
+            })
+        }    
+        if (username.length < 4 || username.length > 12) {
+            this.setState({
+                message: 'Username must be getween 4 and 12 characters'
+            })
+        }
+    }
     sendUserData = (e) => {
         e.preventDefault();
+        this.handleUserInputErrors()
         const object = {
             username: this.state.username,
             passw: this.state.password
@@ -22,11 +39,11 @@ export default class CreateAccount extends Component {
 
     updateUsername = (e) => {
         const username = e.target.value;
-        if (username.length < 4 || username.length > 12) {
-            this.setState({
-                message: 'Username must be getween 4 and 12 characters'
-            })
-        }
+        // if (username.length < 4 || username.length > 12) {
+        //     this.setState({
+        //         message: 'Username must be getween 4 and 12 characters'
+        //     })
+        // }
         this.setState({
             username: username
         })
@@ -34,16 +51,19 @@ export default class CreateAccount extends Component {
 
     updatePassword = (e) => {
         const password = e.target.value;
-        const validateText = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
-        if (!password.match(validateText)) {
-            this.setState({
-                message: 'Password must be getween 7 and 15 characters, and include at least one digit, and one special character'
-            })
-        } else {
-            this.setState({
-                password: password
-            })
-        }
+        // const validateText = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        // if (!password.match(validateText)) {
+        //     this.setState({
+        //         message: 'Password must be between 7 and 15 characters, and include at least one digit, and one special character'
+        //     })
+        // } else {
+        //     this.setState({
+        //         password: password
+        //     })
+        // }
+        this.setState({
+            password: password
+        })
     }
 
     render() {
@@ -60,6 +80,7 @@ export default class CreateAccount extends Component {
                         <input type="password" name='password' id='password' onChange={this.updatePassword} />
                     </div>
                     <button type='submit'>Sign Up!</button>
+                    <ValidateCreateAccount message={this.state.message}/>
                 </form>
             </section>
         )

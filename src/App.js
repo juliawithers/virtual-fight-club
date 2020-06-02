@@ -19,6 +19,7 @@ class App extends Component {
       usernameErr: '',
       passwordErr: '',
       error: '',
+      loginError: '',
       login: false,
       auth: '',
       username: '',
@@ -145,7 +146,9 @@ class App extends Component {
           login: true
         })
       })
-      .catch(error => this.setState({ error }))
+      .catch(error => 
+        this.setState({ 
+          error: error}))
   }
  
   createCharacter = (character) => {
@@ -353,6 +356,7 @@ class App extends Component {
       usernameErr: this.state.usernameErr,
       passwordErr: this.state.passwordErr,
       login: this.state.login,
+      loginError: '',
       auth: this.state.auth,
       username: this.state.username,
       user_id: this.state.user_id,

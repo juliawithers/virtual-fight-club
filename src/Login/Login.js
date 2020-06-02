@@ -32,6 +32,7 @@ export default class Login extends Component {
 
     render(){
         const { username, password } = this.state;
+        console.log(this.context.error)
         return(
             <section>
                 <h2>Login</h2>
