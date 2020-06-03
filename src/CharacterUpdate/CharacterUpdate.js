@@ -9,12 +9,12 @@ class CharacterUpdate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            updStrength: '',
-            updIntelligence: '',
-            updCharisma: '',
-            updAgility: '',
+            updStrength: 0,
+            updIntelligence: 0,
+            updCharisma: 0,
+            updAgility: 0,
             attrpoints: '',
-            message: ''
+            message: '',
         }
     }
 
@@ -26,7 +26,13 @@ class CharacterUpdate extends Component {
     }
 
     handleErrors() {
-        const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
+        const strength = this.state.updStrength + Number(this.context.character.strength);
+        const intelligence = this.state.updIntelligence + Number(this.context.character.intelligence);
+        const charisma = this.state.updCharisma + Number(this.context.character.charisma);
+        const agility = this.state.updAgility + Number(this.context.character.agility);
+
+        const total = strength + intelligence + charisma + agility;
+
         const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
 
         const diff = total - original;
@@ -46,21 +52,27 @@ class CharacterUpdate extends Component {
 
     submitUpdatedAttributes = e => {
         e.preventDefault();
+        
         this.handleErrors();
-        const total = this.state.updStrength + this.state.updIntelligence + this.state.updCharisma + this.state.updAgility;
-     
+        const strength = this.state.updStrength + Number(this.context.character.strength);
+        const intelligence = this.state.updIntelligence + Number(this.context.character.intelligence);
+        const charisma = this.state.updCharisma + Number(this.context.character.charisma);
+        const agility = this.state.updAgility + Number(this.context.character.agility);
+
+        const total = strength + intelligence + charisma + agility;
+
         const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
-       
+
         const diff = total - original;
  
         const newAttributepoints = Number(this.context.character.attrpoints) - diff;
 
         const character = {
             ...this.context.character,
-            strength: this.state.updStrength,
-            intelligence: this.state.updIntelligence,
-            charisma: this.state.updCharisma,
-            agility: this.state.updAgility,
+            strength: strength,
+            intelligence: intelligence,
+            charisma: charisma,
+            agility: agility,
             attrpoints: newAttributepoints
         }
         this.setState({
@@ -80,7 +92,12 @@ class CharacterUpdate extends Component {
             updIntelligence: '',
             updCharisma: '',
             updAgility: '',
-            message: 'Updated!'            
+            projStrength: '',
+            projIntelligence: '',
+            projCharisma: '',
+            projAgility: '',
+            message: 'Updated!'  
+
         })
         this.props.history.push(`/auth/${this.context.character.user_id}/character`)
     }
@@ -88,7 +105,7 @@ class CharacterUpdate extends Component {
     updateAttributes = e => {      
         const value = parseInt(e.target.value);     
         const id = e.target.id;
-
+       
         if (isNaN(value)) {
             if (id === 'strength') {
                 this.setState({
@@ -116,24 +133,30 @@ class CharacterUpdate extends Component {
         }
         else if (id === 'strength') {
             this.setState({
-                updStrength: value + Number(this.context.character.strength),
+                updStrength: value,
             })
         }
         else if (id === 'intelligence') {
             this.setState({
-                updIntelligence: value + Number(this.context.character.intelligence),
+                updIntelligence: value,
             })
         }
         else if (id === 'charisma') {
             this.setState({
-                updCharisma: value + Number(this.context.character.charisma),
+                updCharisma: value,
             })
         }
         else if (id === 'agility') {
             this.setState({
-                updAgility: value + Number(this.context.character.agility),
+                updAgility: value,
             })
         }
+        this.setState({
+            projStrength: this.state.updStrength + Number(this.context.character.strength),
+            projIntelligence: this.state.updIntelligence + Number(this.context.character.intelligence),
+            projCharisma: this.state.updCharisma + Number(this.context.character.charisma),
+            projAgility: this.state.updAgility + Number(this.context.character.agility)
+        })
     }
 
     handleDeleteCharacter=()=>{
@@ -149,6 +172,8 @@ class CharacterUpdate extends Component {
     
     render() {
         const { strength, intelligence, charisma, agility } = this.state
+
+
         return (
         <div>
             <form onSubmit={this.submitUpdatedAttributes}>
@@ -158,19 +183,19 @@ class CharacterUpdate extends Component {
                 <div>
                     <label htmlFor="strength">Strength: </label>
                     <input onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
-                    <p>Projected: {this.state.updStrength}</p>
+                    <p>Projected: {this.state.projStrength}</p>
                     <br />
                     <label htmlFor="intelligence">Intelligence: </label>
                     <input onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
-                    <p>Projected: {this.state.updIntelligence}</p>
+                    <p>Projected: {this.state.projIntelligence}</p>
                     <br />
                     <label htmlFor="charisma">Charisma: </label>
                     <input onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
-                    <p>Projected: {this.state.updCharisma}</p>
+                    <p>Projected: {this.state.projCharisma}</p>
                     <br />
                     <label htmlFor="agility">Agility: </label>
                     <input onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
-                    <p>Projected: {this.state.updAgility}</p>
+                    <p>Projected: {this.state.projAgility}</p>
                     <br />
                 </div>
                 <button type='submit'>UPDATE</button>

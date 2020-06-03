@@ -116,6 +116,7 @@ class App extends Component {
         
       })
       .catch(error => {
+        console.log(error)
         this.setState({
           error: 'Password or Username is incorrect, please verify login information'
         })
@@ -146,9 +147,11 @@ class App extends Component {
           login: true
         })
       })
-      .catch(error => 
+      .catch(error => {
+        console.log(error)
         this.setState({ 
-          error: error}))
+          error: error})
+        })
   }
  
   createCharacter = (character) => {
@@ -172,12 +175,13 @@ class App extends Component {
           attrpoints: Number(character.attrpoints)
         })
       })
-      .catch(error => this.setState({ error }))
+      .catch(error => {
+        console.log(error)
+        this.setState({ error })
+      })
   }
 
   updateCharacter = (character, reason) => {
-    console.log(character.wins)
-    console.log(character.losses)
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'PATCH',
       body: JSON.stringify(character),

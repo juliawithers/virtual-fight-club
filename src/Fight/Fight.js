@@ -218,7 +218,6 @@ export default class Fight extends Component {
     }
 
     render() {
-        console.log(this.context.character)
         const button = this.state.currentButton === 'Fight' ?
             (<button
                 onClick={() => this.handleButtonClick('Fight')}
