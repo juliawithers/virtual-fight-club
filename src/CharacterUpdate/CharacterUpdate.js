@@ -26,80 +26,204 @@ class CharacterUpdate extends Component {
     }
 
     handleErrors() {
-        const strength = this.state.updStrength + Number(this.context.character.strength);
-        const intelligence = this.state.updIntelligence + Number(this.context.character.intelligence);
-        const charisma = this.state.updCharisma + Number(this.context.character.charisma);
-        const agility = this.state.updAgility + Number(this.context.character.agility);
-
-        const total = strength + intelligence + charisma + agility;
-
-        const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
-
-        const diff = total - original;
-
-        if (diff > this.state.attrpoints) {
+        console.log(this.state)
+        
+        if(this.state.updStrength < 0){
             this.setState({
-                message: 'Sorry, you ran out of attribute points to distribute'
+                updStrength: 0,
+                updIntelligence: 0,
+                updCharisma: 0,
+                updAgility: 0,
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Your entry must be a valid positive number'  
             })
             var elements = document.getElementsByTagName("input");
             for (var i=0; i < elements.length; i++) {
-                if (elements[i].type === "text") {
+                if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
+            return true
         }
+        if(this.state.updIntelligence < 0){
+            this.setState({
+                updStrength: 0,
+                updIntelligence: 0,
+                updCharisma: 0,
+                updAgility: 0,
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Your entry must be a valid positive number'  
+            })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "number") {
+                    elements[i].value = "";
+                }
+            }
+            return true
+        }
+        if(this.state.updCharisma < 0){
+            this.setState({
+                updStrength: 0,
+                updIntelligence: 0,
+                updCharisma: 0,
+                updAgility: 0,
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Your entry must be a valid positive number'  
+            })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "number") {
+                    elements[i].value = "";
+                }
+            }
+            return true
+        }
+        if(this.state.updAgility < 0){
+            
+            this.setState({
+                updStrength: 0,
+                updIntelligence: 0,
+                updCharisma: 0,
+                updAgility: 0,
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Your entry must be a valid positive number'  
+            })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "number") {
+                    elements[i].value = "";
+                }
+            }
+            return true
+        }
+
+        const strength = Number(this.state.updStrength) + Number(this.context.character.strength);
+        const intelligence = Number(this.state.updIntelligence) + Number(this.context.character.intelligence);
+        const charisma = Number(this.state.updCharisma) + Number(this.context.character.charisma);
+        const agility = Number(this.state.updAgility) + Number(this.context.character.agility);
+        console.log(strength)
+        console.log(intelligence)
+
+        const total = Number(strength) + Number(intelligence) + Number(charisma) + Number(agility);
+        console.log(total)
+
+        const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
+        console.log(original)
+
+        const diff = Number(total) - Number(original);
+        console.log(diff)
+        if (diff > this.state.attrpoints) {
+            this.setState({
+                updStrength: 0,
+                updIntelligence: 0,
+                updCharisma: 0,
+                updAgility: 0,
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Sorry, you ran out of attribute points to distribute'  
+            })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "number") {
+                    elements[i].value = "";
+                }
+            }
+            return true
+        }
+        if (diff < 0) {
+            this.setState({
+                updStrength: 0,
+                updIntelligence: 0,
+                updCharisma: 0,
+                updAgility: 0,
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'  
+            })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "number") {
+                    elements[i].value = "";
+                }
+            }
+            return true
+        }
+        return false
     }
 
     submitUpdatedAttributes = e => {
         e.preventDefault();
         
-        this.handleErrors();
-        const strength = this.state.updStrength + Number(this.context.character.strength);
-        const intelligence = this.state.updIntelligence + Number(this.context.character.intelligence);
-        const charisma = this.state.updCharisma + Number(this.context.character.charisma);
-        const agility = this.state.updAgility + Number(this.context.character.agility);
+        const logic = this.handleErrors();
+        if (logic === false) {
+            const strength = Number(this.state.updStrength) + Number(this.context.character.strength);
+            const intelligence = Number(this.state.updIntelligence) + Number(this.context.character.intelligence);
+            const charisma = Number(this.state.updCharisma) + Number(this.context.character.charisma);
+            const agility = Number(this.state.updAgility) + Number(this.context.character.agility);
+            console.log(strength)
+            console.log(intelligence)
 
-        const total = strength + intelligence + charisma + agility;
+            const total = Number(strength) + Number(intelligence) + Number(charisma) + Number(agility);
+            console.log(total)
 
-        const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
+            const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
 
-        const diff = total - original;
- 
-        const newAttributepoints = Number(this.context.character.attrpoints) - diff;
+            const diff = total - original;
+    
+            const newAttributepoints = Number(this.context.character.attrpoints) - diff;
 
-        const character = {
-            ...this.context.character,
-            strength: strength,
-            intelligence: intelligence,
-            charisma: charisma,
-            agility: agility,
-            attrpoints: newAttributepoints
-        }
-        this.setState({
-            attrpoints: newAttributepoints
-        })
-        
-        this.context.updateCharacter(character, 'attributes')
-        
-        var elements = document.getElementsByTagName("input");
-        for (var i=0; i < elements.length; i++) {
-            if (elements[i].type === "number") {
-                elements[i].value = "";
+            const character = {
+                ...this.context.character,
+                strength: strength,
+                intelligence: intelligence,
+                charisma: charisma,
+                agility: agility,
+                attrpoints: newAttributepoints
             }
-        }
-        this.setState({
-            updStrength: '',
-            updIntelligence: '',
-            updCharisma: '',
-            updAgility: '',
-            projStrength: '',
-            projIntelligence: '',
-            projCharisma: '',
-            projAgility: '',
-            message: 'Updated!'  
+            this.setState({
+                attrpoints: newAttributepoints
+            })
+            
+            this.context.updateCharacter(character, 'attributes')
+            
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "number") {
+                    elements[i].value = "";
+                }
+            }
+            this.setState({
+                updStrength: '',
+                updIntelligence: '',
+                updCharisma: '',
+                updAgility: '',
+                projStrength: '',
+                projIntelligence: '',
+                projCharisma: '',
+                projAgility: '',
+                message: 'Updated!'  
 
-        })
-        this.props.history.push(`/auth/${this.context.character.user_id}/character`)
+            })
+            this.props.history.push(`/auth/${this.context.character.user_id}/character`)
+        }
+        
     }
 
     updateAttributes = e => {      
