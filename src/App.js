@@ -147,11 +147,11 @@ class App extends Component {
           login: true
         })
       })
-      .catch(error => {
-        console.log(error)
-        this.setState({ 
-          error: error})
-        })
+      .catch(error => 
+        // this.props.history.push('/')
+        // console.log(error)
+        this.setState({error})
+        )
   }
  
   createCharacter = (character) => {
