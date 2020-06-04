@@ -258,29 +258,27 @@ class CharacterUpdate extends Component {
         else if (id === 'strength') {
             this.setState({
                 updStrength: value,
+                projStrength: value + Number(this.context.character.strength)
             })
         }
         else if (id === 'intelligence') {
             this.setState({
                 updIntelligence: value,
+                projIntelligence: value + Number(this.context.character.intelligence)
             })
         }
         else if (id === 'charisma') {
             this.setState({
                 updCharisma: value,
+                projCharisma: value + Number(this.context.character.charisma)
             })
         }
         else if (id === 'agility') {
             this.setState({
                 updAgility: value,
+                projAgility: value + Number(this.context.character.agility)
             })
         }
-        this.setState({
-            projStrength: this.state.updStrength + Number(this.context.character.strength),
-            projIntelligence: this.state.updIntelligence + Number(this.context.character.intelligence),
-            projCharisma: this.state.updCharisma + Number(this.context.character.charisma),
-            projAgility: this.state.updAgility + Number(this.context.character.agility)
-        })
     }
 
     handleDeleteCharacter=()=>{
