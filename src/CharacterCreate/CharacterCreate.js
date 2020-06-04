@@ -114,6 +114,23 @@ export default class CharacterCreate extends Component {
             })
             return true
         } 
+        if (total >= 0 && total < 10) {
+            this.setState({
+                message: 'Sorry, you must enter a value for each attribute',
+                updStrength: '',
+                updIntelligence: '',
+                updCharisma: '',
+                updAgility: '',
+                attrpoints: 10,
+            })
+            var elements = document.getElementsByTagName("input");
+            for (var i=0; i < elements.length; i++) {
+                if (elements[i].type === "text") {
+                    elements[i].value = "";
+                }
+            }
+            return true     
+        }
         if (total < 0) {
             this.setState({
                 updStrength: '',
@@ -149,8 +166,7 @@ export default class CharacterCreate extends Component {
 
             const total = Number(strength) + Number(intelligence) + Number(charisma) + Number(agility);
             console.log(total)
-    
-            const newAttributepoints = Number(this.context.character.attrpoints) - total;
+
             const character = {
                 auth: this.context.auth,
                 username: this.context.username,
@@ -164,7 +180,7 @@ export default class CharacterCreate extends Component {
                 current_points: 0,
                 wins: 0,
                 losses: 0,
-                attrpoints: newAttributepoints
+                attrpoints: 0
             }
             this.context.createCharacter(character);    
         }
