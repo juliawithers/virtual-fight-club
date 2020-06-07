@@ -21,12 +21,15 @@ Please see the endpoints and schemas below:
 ### /login 
 __.post__: 
 request body: 
-````{
+```
+    {
         "username": username, 
         "password": passw
-    }````
+    }
+```
 returns: 
-````{
+```
+    {
         "login": true,
         "user": [
             {
@@ -35,16 +38,20 @@ returns:
                 "username": "lydiaMartin",
             }
         ]
-    }````
+    }
+```
 
 ### /users
 __.get__:
 query params:
+```
     {
         "login": true,
         "userId": users unique id
     }
+```
 returns:
+```
     {
         "users": [{
             "auth": user auth,
@@ -52,34 +59,44 @@ returns:
             "passw": "",
         },...  ]
     }
+```
 
 __.post__: 
 body:  
+```
     {
         "auth": user auth,
         "username": "",
         "passw": "",
     }
+```
 returns: 
+```
     {
         "id": user.id,
         "auth": auth,
         "username": username
     }
+```
 
 __.delete__:
 body: 
+```
     {
         "user_id": user.id
     }
+```
 returns:
+```
     {
         "userId": user.id
     }
+```
 
 ### /characters
 __.get__:
 returns: 
+```
     {
         "characters": [{
             "id": character id,
@@ -98,9 +115,11 @@ returns:
             "attrpoints": 
         }, ...]
     }
+```
 
 __.post__:
 body: 
+```
     {
         "auth": "",
         "username": "",
@@ -116,7 +135,9 @@ body:
         "losses": ,
         "attrpoints": 
     }
+```
 returns: 
+```
     {
         "character": {
             "id": character id
@@ -135,8 +156,10 @@ returns:
             "attrpoints": 
         }
     }
+```
 
 TEST CHARACTER OBJECT:
+```
     {
         "auth": "0810bd3e-6112-4c27-a63f-c533e885495c",
         "username": "testcharacter",
@@ -152,18 +175,22 @@ TEST CHARACTER OBJECT:
         "losses": 0,
         "attrpoints": 0
     }
+```
 
 __.delete__:
 body:
+```
     {
         "id": character id
     }
+```
 returns:
     success status or error
 
 ### /matches
 __.get__:
 returns: 
+```
     {
         "matches":[{
             "char_1_id": current user id,
@@ -173,9 +200,10 @@ returns:
             "points": 
         },...]
     }
-
+```
 __.post__:
 body: 
+```
     {
         "char_1_id": current user id,
         "char_2_id": opponent id,
@@ -183,7 +211,9 @@ body:
         "loser": ,
         "points": 
     }
+```
 returns: 
+```
     {
         "match": {
             "id": match id
@@ -194,15 +224,19 @@ returns:
             "points": 
         }
     }
+```
 
 ### /characters/:id
 __.get__:
 query params: 
+```
     {
         "login": true,
         "userId": users id
     }
+```
 returns:
+```
     {
         "character": {
             "id": character id
@@ -221,3 +255,4 @@ returns:
             "attrpoints": 
         }
     }
+```
