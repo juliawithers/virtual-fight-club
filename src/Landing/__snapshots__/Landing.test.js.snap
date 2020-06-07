@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Landing component renders the UI as expected 1`] = `
+<div>
+  <AboutGame />
+  <CreateAccount />
+  <Login />
+</div>
+`;

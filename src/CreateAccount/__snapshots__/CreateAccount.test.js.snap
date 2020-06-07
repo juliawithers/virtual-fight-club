@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateAccount component renders the UI as expected 1`] = `
+<section>
+  <h2>
+    Create your character today!
+  </h2>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      <label
+        htmlFor="username"
+      >
+        Username(must be between 4 and 12 characters): 
+      </label>
+      <input
+        id="username"
+        name="username"
+        onChange={[Function]}
+        type="text"
+      />
+    </div>
+    <div>
+      <label
+        htmlFor="password"
+      >
+        Password (must be between 7 and 15 characters and include at least one digit and one special character): 
+      </label>
+      <input
+        id="password"
+        name="password"
+        onChange={[Function]}
+        type="password"
+      />
+    </div>
+    <button
+      type="submit"
+    >
+      Sign Up!
+    </button>
+    <ValidateCreateAccount />
+  </form>
+</section>
+`;

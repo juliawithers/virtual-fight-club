@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login component renders the UI as expected 1`] = `
+<section>
+  <h2>
+    Login
+  </h2>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      <label
+        htmlFor="login-username"
+      >
+        Username: 
+      </label>
+      <input
+        id="login-username"
+        name="login-username"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        htmlFor="login-password"
+      >
+        Password: 
+      </label>
+      <input
+        id="login-password"
+        name="login-password"
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </div>
+    <ValidateLogin />
+    <button
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
+</section>
+`;

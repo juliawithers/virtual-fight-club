@@ -2,25 +2,22 @@ import React from 'react';
 import { shallow, configure } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import App from './App'
+import Landing from './Landing'
 
 import Adapter from 'enzyme-adapter-react-16'
 configure({ adapter: new Adapter() })
 
-describe(`App component`, () => {
+describe(`Landing component`, () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>,
+            <Landing/>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
     })
     it('renders the UI as expected',() =>{
-        const wrapper = shallow(<App/>)
+        const wrapper = shallow(<Landing/>)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
 })
