@@ -16,18 +16,17 @@ Matches are determined by attribute points and chance.
 ## Technology Used
 React, NodeJs, PostgreSQL
 
-## API documentation
+## API documentation/schemas
 Please see the endpoints and schemas below: 
-##  SCHEMAS:
 ### /login 
 __.post__: 
 request body: 
-    {
+````{
         "username": username, 
         "password": passw
-    }
+    }````
 returns: 
-    {
+````{
         "login": true,
         "user": [
             {
@@ -36,7 +35,7 @@ returns:
                 "username": "lydiaMartin",
             }
         ]
-    }
+    }````
 
 ### /users
 __.get__:
