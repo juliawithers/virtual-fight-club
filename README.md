@@ -20,6 +20,11 @@ React, NodeJs, PostgreSQL
 Please see the endpoints and schemas below:
 ```
 `https://virtual-fight-club.herokuapp.com/api/vfc`
+/login
+/users
+/characters
+/matches
+/characters/:id
 ```
 ### /login 
 __POST__: 
