@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow, configure } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
 import Login from './Login'
 
 import Adapter from 'enzyme-adapter-react-16'
@@ -21,4 +20,4 @@ describe(`Login component`, () => {
         const wrapper = shallow(<Login/>)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
-})
+})  

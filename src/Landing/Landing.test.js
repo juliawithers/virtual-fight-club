@@ -20,4 +20,4 @@ describe(`Landing component`, () => {
         const wrapper = shallow(<Landing/>)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
-})
+})  

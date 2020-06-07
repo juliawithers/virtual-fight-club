@@ -14,6 +14,7 @@ exports[`CreateAccount component renders the UI as expected 1`] = `
       >
         Username(must be between 4 and 12 characters): 
       </label>
+      <br />
       <input
         id="username"
         name="username"
@@ -27,6 +28,7 @@ exports[`CreateAccount component renders the UI as expected 1`] = `
       >
         Password (must be between 7 and 15 characters and include at least one digit and one special character): 
       </label>
+      <br />
       <input
         id="password"
         name="password"

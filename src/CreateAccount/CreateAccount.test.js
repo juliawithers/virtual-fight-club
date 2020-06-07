@@ -20,4 +20,4 @@ describe(`CreateAccount component`, () => {
         const wrapper = shallow(<CreateAccount/>)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
-})
+})  

@@ -20,4 +20,4 @@ describe(`AboutGame component`, () => {
         const wrapper = shallow(<AboutGame/>)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
-})
+})  

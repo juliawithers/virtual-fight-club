@@ -23,4 +23,4 @@ describe(`App component`, () => {
         const wrapper = shallow(<App/>)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
-})
+})  
