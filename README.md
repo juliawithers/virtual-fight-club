@@ -17,9 +17,12 @@ Matches are determined by attribute points and chance.
 React, NodeJs, PostgreSQL
 
 ## API documentation/schemas
-Please see the endpoints and schemas below: 
+Please see the endpoints and schemas below:
+```
+`https://virtual-fight-club.herokuapp.com/api/vfc`
+```
 ### /login 
-__.post__: 
+__POST__: 
 request body: 
 ```
     {
@@ -42,7 +45,7 @@ returns:
 ```
 
 ### /users
-__.get__:
+__GET__:
 query params:
 ```
     {
@@ -61,7 +64,7 @@ returns:
     }
 ```
 
-__.post__: 
+__POST__: 
 body:  
 ```
     {
@@ -79,22 +82,22 @@ returns:
     }
 ```
 
-__.delete__:
+__DELETE__:
 body: 
 ```
     {
-        "user_id": user.id
+        "id": user.id
     }
 ```
 returns:
 ```
     {
-        "userId": user.id
+        "user_id": user.id
     }
 ```
 
 ### /characters
-__.get__:
+__GET__:
 returns: 
 ```
     {
@@ -117,7 +120,7 @@ returns:
     }
 ```
 
-__.post__:
+__POST__ / __PATCH__:
 body: 
 ```
     {
@@ -177,7 +180,7 @@ TEST CHARACTER OBJECT:
     }
 ```
 
-__.delete__:
+__DELETE__:
 body:
 ```
     {
@@ -188,7 +191,7 @@ returns:
     success status or error
 
 ### /matches
-__.get__:
+__GET__:
 returns: 
 ```
     {
@@ -201,7 +204,7 @@ returns:
         },...]
     }
 ```
-__.post__:
+__POST__:
 body: 
 ```
     {
@@ -227,13 +230,10 @@ returns:
 ```
 
 ### /characters/:id
-__.get__:
-query params: 
+__GET__:
+query params: /characters/${user_id}
 ```
-    {
-        "login": true,
-        "userId": users id
-    }
+    `/characters/${user_id}`
 ```
 returns:
 ```
