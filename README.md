@@ -23,6 +23,7 @@ Please see the endpoints and schemas below:
 ```
 ### /login 
 __POST__: 
+
 request body: 
 ```
     {
@@ -46,12 +47,10 @@ returns:
 
 ### /users
 __GET__:
+
 query params:
 ```
-    {
-        "login": true,
-        "userId": users unique id
-    }
+    `/users/?login=${login status}&userId=${user_id}`
 ```
 returns:
 ```
@@ -65,6 +64,7 @@ returns:
 ```
 
 __POST__: 
+
 body:  
 ```
     {
@@ -83,6 +83,7 @@ returns:
 ```
 
 __DELETE__:
+
 body: 
 ```
     {
@@ -98,6 +99,7 @@ returns:
 
 ### /characters
 __GET__:
+
 returns: 
 ```
     {
@@ -121,6 +123,7 @@ returns:
 ```
 
 __POST__ / __PATCH__:
+
 body: 
 ```
     {
@@ -181,6 +184,7 @@ TEST CHARACTER OBJECT:
 ```
 
 __DELETE__:
+
 body:
 ```
     {
@@ -192,6 +196,7 @@ returns:
 
 ### /matches
 __GET__:
+
 returns: 
 ```
     {
@@ -205,6 +210,7 @@ returns:
     }
 ```
 __POST__:
+
 body: 
 ```
     {
@@ -231,6 +237,7 @@ returns:
 
 ### /characters/:id
 __GET__:
+
 query params: /characters/${user_id}
 ```
     `/characters/${user_id}`
