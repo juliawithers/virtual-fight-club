@@ -24,65 +24,65 @@ export default class CharacterCreate extends Component {
     }
 
     handleErrors() {
-        if(this.state.updStrength < 0){
+        if (this.state.updStrength < 0) {
             this.setState({
                 updStrength: '',
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
             return true
         }
-        if(this.state.updIntelligence < 0){
+        if (this.state.updIntelligence < 0) {
             this.setState({
                 updStrength: '',
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
             return true
         }
-        if(this.state.updCharisma < 0){
+        if (this.state.updCharisma < 0) {
             this.setState({
                 updStrength: '',
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
             return true
         }
-        if(this.state.updAgility < 0){
-            
+        if (this.state.updAgility < 0) {
+
             this.setState({
                 updStrength: '',
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
@@ -102,18 +102,18 @@ export default class CharacterCreate extends Component {
                 attrpoints: 10,
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "text") {
                     elements[i].value = "";
                 }
             }
-            return true 
-        } else if (this.state.char_name === ''){
+            return true
+        } else if (this.state.char_name === '') {
             this.setState({
                 message: 'you must enter a character name'
             })
             return true
-        } 
+        }
         if (total >= 0 && total < 10) {
             this.setState({
                 message: 'Sorry, you must enter a value for each attribute',
@@ -124,12 +124,12 @@ export default class CharacterCreate extends Component {
                 attrpoints: 10,
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "text") {
                     elements[i].value = "";
                 }
             }
-            return true     
+            return true
         }
         if (total < 0) {
             this.setState({
@@ -137,16 +137,16 @@ export default class CharacterCreate extends Component {
                 updIntelligence: '',
                 updCharisma: '',
                 updAgility: '',
-                message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'  
+                message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'
             })
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
             return true
-        }else {
+        } else {
             return false
         }
     }
@@ -182,7 +182,7 @@ export default class CharacterCreate extends Component {
                 losses: 0,
                 attrpoints: 0
             }
-            this.context.createCharacter(character);    
+            this.context.createCharacter(character);
         }
     }
 
@@ -193,12 +193,12 @@ export default class CharacterCreate extends Component {
             if (value === '') {
                 this.setState({
                     updStrength: 0,
-                })    
+                })
             } else {
                 this.setState({
                     updStrength: parseInt(value)
                 })
-            } 
+            }
         }
         if (id === 'intelligence') {
             if (value === '') {
@@ -208,30 +208,30 @@ export default class CharacterCreate extends Component {
             } else {
                 this.setState({
                     updIntelligence: parseInt(value),
-                })    
-            }  
+                })
+            }
         }
         if (id === 'charisma') {
             if (value === '') {
                 this.setState({
                     updCharisma: 0,
-                })    
+                })
             } else {
                 this.setState({
                     updCharisma: parseInt(value),
-                })    
+                })
             }
         }
         if (id === 'agility') {
             if (value === '') {
                 this.setState({
                     updAgility: 0,
-                })    
+                })
             } else {
                 this.setState({
                     updAgility: parseInt(value),
-                })    
-            }   
+                })
+            }
         }
         if (id === 'character-name') {
             this.setState({
@@ -243,43 +243,45 @@ export default class CharacterCreate extends Component {
         })
     }
 
-    handleDeleteUser=()=>{
+    handleDeleteUser = () => {
         this.context.deleteUser(this.context.user_id)
     }
 
     render() {
         const { character_name, strength, intelligence, charisma, agility } = this.state
         return (
-            <form onSubmit={this.submitUpdatedAttributes}>
-                <h2>Create Your Character!:</h2>
-                <p>10 points to distribute</p>
-                <ValidateCreate message={this.state.message} />
-                <h2>Name your character:</h2>
-                <label htmlFor="character-name">Choose character name:</label>
-                <input onChange={this.updateAttributes} type="name" name="character-name" id="character-name" value={character_name} />
-                <h2>Select attribute distribution:</h2>
-                {/* <p>Please fill out all attributes, otherwise your character will not be created.</p> */}
-                <div>
-                    <label htmlFor="strength">Strength</label>
-                    <input onChange={this.updateAttributes} type="text" name='strength' id='strength' value={strength} />
-                    <br />
-                    <label htmlFor="intelligence">Intelligence</label>
-                    <input onChange={this.updateAttributes} type="text" name='intelligence' id='intelligence' value={intelligence} />
-                    <br />
-                    <label htmlFor="charisma">Charisma</label>
-                    <input onChange={this.updateAttributes} type="text" name='charisma' id='charisma' value={charisma} />
-                    <br />
-                    <label htmlFor="agility">Agility</label>
-                    <input onChange={this.updateAttributes} type="text" name='agility' id='agility' value={agility} />
-                    <br />
-                </div>
-                <button type='submit'>CREATE</button>
+            <div>
+                <form onSubmit={this.submitUpdatedAttributes}>
+                    <p>You start with 10 points to distribute. Distribute the 10 points in any way you wish, however you must add points to every attribute when creating a character.</p>
+                    <ValidateCreate message={this.state.message} />
+                    <h2>Name your character</h2>
+                    <label htmlFor="character-name">Choose character name: </label>
+                    <input onChange={this.updateAttributes} type="name" name="character-name" id="character-name" value={character_name} />
+                    <h2>Select attribute distribution: </h2>
+                    {/* <p>Please fill out all attributes, otherwise your character will not be created.</p> */}
+                    <div>
+                        <label htmlFor="strength">Strength </label>
+                        <input onChange={this.updateAttributes} type="text" name='strength' id='strength' value={strength} />
+                        <br />
+                        <label htmlFor="intelligence">Intelligence </label>
+                        <input onChange={this.updateAttributes} type="text" name='intelligence' id='intelligence' value={intelligence} />
+                        <br />
+                        <label htmlFor="charisma">Charisma </label>
+                        <input onChange={this.updateAttributes} type="text" name='charisma' id='charisma' value={charisma} />
+                        <br />
+                        <label htmlFor="agility">Agility </label>
+                        <input onChange={this.updateAttributes} type="text" name='agility' id='agility' value={agility} />
+                        <br />
+                    </div>
+                    <button className="submit" type='submit'>CREATE</button>
+                </form>
                 <button
+                    className="delete-account"
                     onClick={this.handleDeleteUser}
-                >
-                    delete account?
+                    >
+                        delete account?
                 </button>
-            </form>
+            </div>
         )
     }
 }

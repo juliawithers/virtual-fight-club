@@ -323,11 +323,13 @@ class CharacterUpdate extends Component {
                 <button type='submit'>UPDATE</button>
             </form>
             <button
+                className="delete-character"
                 onClick={this.handleDeleteCharacter}
             >
                 delete character?
             </button>
             <button
+                className="delete-account"
                 onClick={this.handleDeleteUser}
             >
                 delete account?

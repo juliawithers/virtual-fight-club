@@ -29,7 +29,7 @@ export default class Character extends Component {
                 ? <Redirect to="/message"/>
                 :
                 <div>
-                <header role="banner">
+                <header className="header" role="banner">
                 <h1>
                     {this.context.character.char_name === undefined
                     ? 'Create your Character!'

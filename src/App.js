@@ -389,7 +389,7 @@ class App extends Component {
           <main role="main">
             {this.createMainRoutes()}
           </main>
-          <footer role="content-info"><Link to="/">Virtual Fight Club</Link></footer>
+          <footer className="footer" role="content-info"><Link className="link" to="/">Virtual Fight Club</Link></footer>
         </body>
       </context.Provider>
     )

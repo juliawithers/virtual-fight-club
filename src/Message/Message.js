@@ -6,7 +6,7 @@ export default class Message extends Component {
     render(){
         return(
             <div>
-                <header role="banner">
+                <header className="header" role="banner">
                     <h1>Virtual Fight Club</h1>
                 </header>
                 <section>

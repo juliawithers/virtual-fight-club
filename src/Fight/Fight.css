@@ -1,11 +1,6 @@
 p>.hidden{
     display: none;
 }
-
-/* #fight{
-    display: block;
+.fight{
+    font-size: 120%;
 }
-
-#next{
-    display: none;
-} */

@@ -6,7 +6,7 @@ body {
   font-family: "Open Sans",
   sans-serif;
   font-size: 20px;
-  color: #444;
+  color: #003333;
   text-align: center;
   line-height: 1.5;
 }
@@ -30,8 +30,35 @@ nav > div {
   justify-content: space-evenly;
 }
 
-header {
-  padding: 45px 15px;
+.nav-link {
+  text-decoration: none;
+  color: #003333;
+}
+
+.nav-link:hover{
+  background-color: white;
+}
+
+.link {
+  text-decoration: none;
+  color: #003333;
+}
+
+header{
+  padding-top: 15px;
+  height: 100px;
+}
+
+button{
+  text-decoration: none;
+  color: #003333;
+  border: 2px solid #003333; 
+  padding: 4px;
+  margin: 5px;
+}
+
+button:hover{
+  cursor: pointer;
 }
 
 section {
@@ -52,3 +79,8 @@ p {
 p + p {
   margin-top: 15px;
 }
+
+input{
+  padding: 5px;
+}
+

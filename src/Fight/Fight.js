@@ -220,12 +220,12 @@ export default class Fight extends Component {
 
     render() {
         const button = this.state.currentButton === 'Fight' ?
-            (<button
+            (<button className="fight"
                 onClick={() => this.handleButtonClick('Fight')}
                 id="fight"
             >
                 FIGHT
-            </button>) : (<button
+            </button>) : (<button className="fight"
                 onClick={() => this.handleButtonClick('Next Opponent')}
                 id="next"
             >
@@ -238,8 +238,8 @@ export default class Fight extends Component {
                 ? <Redirect to="/message"/>
                 :
                 <div>
-                <header role="banner">
-                    <h1>Fight Your Opponent!</h1>
+                <header className="header" role="banner">
+                    <h1>Fight!</h1>
                 </header>
                 <FightProfile
                     character={this.context.character} />
