@@ -20,9 +20,6 @@ exports[`AboutGame component renders the UI as expected 1`] = `
     <p>
       And remember, the FIRST RULE OF FIGHT CLUB: You do not talk about (virtual) Fight Club!
     </p>
-    <p>
-      [placeholder for screenshot of character page]
-    </p>
   </section>
   <section>
     <h2>
@@ -30,9 +27,6 @@ exports[`AboutGame component renders the UI as expected 1`] = `
     </h2>
     <p>
       Each opponent is chosen at random and the winner is determined by an algorithm that incorporates the attribute values and random chance. Win and gain points towards your next upgrade. Lose and you won't lose anything, you just won't gain any points.
-    </p>
-    <p>
-      [placeholder for screenshot of fight page]
     </p>
   </section>
 </div>

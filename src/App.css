@@ -19,6 +19,7 @@ footer {
 
 nav {
   position: fixed;
+  height: 70px;
   top: 0;
   left: 0;
   right: 0;
@@ -45,8 +46,8 @@ nav > div {
 }
 
 header{
-  padding-top: 15px;
-  height: 100px;
+  padding-top: 35px;
+  height: 120px;
 }
 
 button{
