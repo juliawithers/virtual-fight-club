@@ -3,6 +3,7 @@ import context from '../context'
 import FightProfile from '../FightProfile/FightProfile'
 import './Fight.css'
 import config from '../config'
+import { Redirect } from 'react-router-dom'
 
 export default class Fight extends Component {
     static contextType = context;
@@ -233,6 +234,10 @@ export default class Fight extends Component {
 
         return (
             <div>
+                {!this.state.character || !this.state.opponent
+                ? <Redirect to="/message"/>
+                :
+                <div>
                 <header role="banner">
                     <h1>Fight Your Opponent!</h1>
                 </header>
@@ -244,7 +249,8 @@ export default class Fight extends Component {
                     <p>{this.state.winnerText}</p>
                 </div>
                 <FightProfile
-                    character={this.state.opponent} />
+                character={this.state.opponent} />   
+                </div>}         
             </div>
         )
     }

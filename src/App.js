@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, withRouter } from 'react-router-dom'
+import { Route, Link, NavLink, withRouter } from 'react-router-dom'
 import './App.css';
 import Character from './Character/Character'
 import Message from './Message/Message'
@@ -148,8 +148,6 @@ class App extends Component {
         })
       })
       .catch(error => 
-        // this.props.history.push('/')
-        // console.log(error)
         this.setState({error})
         )
   }
@@ -305,7 +303,7 @@ class App extends Component {
             to="/aboutVFC">About</NavLink>
           <NavLink
             className="nav-link"
-            to={`/auth/:${this.state.character.char_name}/character`}>Character</NavLink>
+            to={`/characterPage/${this.state.character.char_name}`}>Character</NavLink>
           <NavLink
             className="nav-link"
             to="/fight">FIGHT!</NavLink>
@@ -321,6 +319,10 @@ class App extends Component {
     }
   }
 
+  authorizedRoutes(){
+
+  }
+
   createMainRoutes() {
     return (
       <>
@@ -331,23 +333,23 @@ class App extends Component {
         />
         <Route
           exact
-          path="/message"
-          component={Message}
-        />
-        <Route
-          exact
           path="/aboutVFC"
           component={AboutGame}
         />
         <Route
           exact
-          path="/auth/:user_id/character"
+          path="/characterPage/:character"
           component={Character}
         />
         <Route
           exact
           path="/fight"
           component={Fight}
+        />
+        <Route
+          exact
+          path="/message"
+          component={Message}
         />
       </>
     )
@@ -387,7 +389,7 @@ class App extends Component {
           <main role="main">
             {this.createMainRoutes()}
           </main>
-          <footer role="content-info">Virtual Fight Club</footer>
+          <footer role="content-info"><Link to="/">Virtual Fight Club</Link></footer>
         </body>
       </context.Provider>
     )

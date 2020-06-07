@@ -3,6 +3,7 @@ import CharacterCreate from '../CharacterCreate/CharacterCreate'
 import CharacterDescription from '../CharacterDescription/CharacterDescription'
 import CharacterUpdate from '../CharacterUpdate/CharacterUpdate'
 import context from '../context'
+import { Redirect } from 'react-router-dom'
 
 export default class Character extends Component {
     static contextType = context;
@@ -24,6 +25,10 @@ export default class Character extends Component {
     render(){ 
         return(
             <div>
+                {!this.context.character
+                ? <Redirect to="/message"/>
+                :
+                <div>
                 <header role="banner">
                 <h1>
                     {this.context.character.char_name === undefined
@@ -38,6 +43,7 @@ export default class Character extends Component {
                     <CharacterDescription char={this.context.character}/>
                     <CharacterUpdate char={this.context.character}/>  
                   </section>}
+                </div>}
             </div>
         )
     }

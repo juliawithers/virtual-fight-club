@@ -12,5 +12,5 @@ export default function ValidateCreateAccount(props) {
 }
 
 ValidateCreateAccount.propTypes={
-    message: PropTypes.string.isRequired
+    message: PropTypes.string
 }
