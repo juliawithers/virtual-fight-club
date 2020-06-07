@@ -9,7 +9,6 @@ import Fight from './Fight/Fight'
 import context from './context'
 import config from './config'
 
-
 class App extends Component {
   static contextType = context;
   constructor(props) {
@@ -385,11 +384,13 @@ class App extends Component {
     return (
       <context.Provider value={contextValue}>
         <body>
+          <div className="container">
           <nav role="navigation">{this.createNavRoutes()}</nav>
           <main role="main">
             {this.createMainRoutes()}
           </main>
           <footer className="footer" role="content-info"><Link className="link" to="/">Virtual Fight Club</Link></footer>
+          </div>
         </body>
       </context.Provider>
     )

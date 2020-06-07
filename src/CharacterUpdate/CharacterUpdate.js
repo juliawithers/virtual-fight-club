@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
+import {FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ValidateUpdate from './ValidateUpdate'
 import context from '../context'
 
@@ -211,7 +212,7 @@ class CharacterUpdate extends Component {
                 message: 'Updated!'  
 
             })
-            this.props.history.push(`/auth/${this.context.character.user_id}/character`)
+            this.props.history.push(`/characterPage/${this.context.character.char_name}`)
         }
         
     }
@@ -295,19 +296,19 @@ class CharacterUpdate extends Component {
                 <div>
                     <label htmlFor="strength">Strength: </label>
                     <input onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
-                    <p>Projected: {this.state.projStrength}</p>
+                    <p className="projected">Projected: {this.state.projStrength}</p>
                     <br />
                     <label htmlFor="intelligence">Intelligence: </label>
                     <input onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
-                    <p>Projected: {this.state.projIntelligence}</p>
+                    <p className="projected">Projected: {this.state.projIntelligence}</p>
                     <br />
                     <label htmlFor="charisma">Charisma: </label>
                     <input onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
-                    <p>Projected: {this.state.projCharisma}</p>
+                    <p className="projected">Projected: {this.state.projCharisma}</p>
                     <br />
                     <label htmlFor="agility">Agility: </label>
                     <input onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
-                    <p>Projected: {this.state.projAgility}</p>
+                    <p className="projected">Projected: {this.state.projAgility}</p>
                     <br />
                 </div>
                 <button type='submit'>UPDATE</button>
@@ -316,13 +317,13 @@ class CharacterUpdate extends Component {
                 className="delete-character"
                 onClick={this.handleDeleteCharacter}
             >
-                delete character?
+                <FontAwesomeIcon icon={faTrashAlt}/> character?
             </button>
             <button
                 className="delete-account"
                 onClick={this.handleDeleteUser}
             >
-                delete account?
+                <FontAwesomeIcon icon={faTrashAlt}/> account?
             </button>
         </div>
         )

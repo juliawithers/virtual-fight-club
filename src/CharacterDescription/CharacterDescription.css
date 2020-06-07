@@ -1,0 +1,43 @@
+.article{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: none;
+    border-bottom: 2px solid  #003333;
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.left>p{
+    padding:0;
+    margin: 0;
+    margin-right: 15px;
+}
+
+.right>p{
+    padding:0;
+    margin: 0;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.left>h3{
+    margin-left: 45px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.right>h3{
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}

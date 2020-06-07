@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import context from '../context'
 import ValidateCreate from './ValidateCreate'
+import {FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 export default class CharacterCreate extends Component {
     static contextType = context;
@@ -276,7 +278,7 @@ export default class CharacterCreate extends Component {
                     className="delete-account"
                     onClick={this.handleDeleteUser}
                     >
-                        delete account?
+                        <FontAwesomeIcon icon={faTrashAlt}/> account?
                 </button>
             </div>
         )

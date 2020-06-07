@@ -246,7 +246,7 @@ export default class Fight extends Component {
 
                 <div className="winner-button-display">
                     {button}
-                    <p>{this.state.winnerText}</p>
+                    <p>{this.state.winnerText}&nbsp;</p>
                 </div>
                 <FightProfile
                 character={this.state.opponent} />   
