@@ -26,8 +26,6 @@ class CharacterUpdate extends Component {
     }
 
     handleErrors() {
-        console.log(this.state)
-        
         if(this.state.updStrength < 0){
             this.setState({
                 updStrength: 0,
@@ -114,17 +112,12 @@ class CharacterUpdate extends Component {
         const intelligence = Number(this.state.updIntelligence) + Number(this.context.character.intelligence);
         const charisma = Number(this.state.updCharisma) + Number(this.context.character.charisma);
         const agility = Number(this.state.updAgility) + Number(this.context.character.agility);
-        console.log(strength)
-        console.log(intelligence)
 
         const total = Number(strength) + Number(intelligence) + Number(charisma) + Number(agility);
-        console.log(total)
-
         const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
-        console.log(original)
 
         const diff = Number(total) - Number(original);
-        console.log(diff)
+
         if (diff > this.state.attrpoints) {
             this.setState({
                 updStrength: 0,
@@ -177,11 +170,8 @@ class CharacterUpdate extends Component {
             const intelligence = Number(this.state.updIntelligence) + Number(this.context.character.intelligence);
             const charisma = Number(this.state.updCharisma) + Number(this.context.character.charisma);
             const agility = Number(this.state.updAgility) + Number(this.context.character.agility);
-            console.log(strength)
-            console.log(intelligence)
 
             const total = Number(strength) + Number(intelligence) + Number(charisma) + Number(agility);
-            console.log(total)
 
             const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
 
