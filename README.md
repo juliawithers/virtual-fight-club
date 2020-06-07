@@ -3,15 +3,20 @@
 Link to live app: https://virtual-fight-club.now.sh/
 
 ## Description
-In Virtual Fight Club you can create a character to do battle with other users. 
-![Fight Page](FightPage.PNG)
+In Virtual Fight Club you can create a character to do battle with other users. Characters have four attributes: strength, intelligence, charisma, and agility. Level up by reaching 50 points (2 points per match). Once you reach a new level you can update your character attributes - you are given 10 attribute points at each level. Matches are determined by attribute points and chance. 
 
-Characters have four attributes: strength, intelligence, charisma, and agility.
-![Character Page](CharacterPage.PNG)
+## Screenshots
+__Landing Page__
+![Landing Page for App](LandingPage.PNG)
 
-Level up by reaching 50 points (2 points per match). Once you reach a new level you can update your character attributes.
+__Fight Page__
+![Fight Page for App](FightPage.PNG)
 
-Matches are determined by attribute points and chance. 
+__Character Page__
+![Character Page for App](CharacterPage.PNG)
+
+__About Page__
+![About Page for App](AboutPage.PNG)
 
 ## Technology Used
 React, NodeJs, PostgreSQL
