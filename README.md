@@ -23,7 +23,7 @@ __About Page__
 ![About Page for App](AboutPage.PNG)
 
 ## Technology Used
-React, NodeJs, PostgreSQL
+React, HTML, Javascript, CSS, NodeJs, PostgreSQL,
 
 ## API documentation/schemas
 Please see the endpoints and schemas below:
