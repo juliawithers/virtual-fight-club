@@ -7,15 +7,19 @@ In Virtual Fight Club you can create a character to do battle with other users. 
 
 ## Screenshots
 __Landing Page__
+
 ![Landing Page for App](LandingPage.PNG)
 
 __Fight Page__
+
 ![Fight Page for App](FightPage.PNG)
 
 __Character Page__
+
 ![Character Page for App](CharacterPage.PNG)
 
 __About Page__
+
 ![About Page for App](AboutPage.PNG)
 
 ## Technology Used
