@@ -24,7 +24,7 @@ export default class Fight extends Component {
 
     componentDidMount() {
         const character = this.context.character;
-        const opponent = this.context.createNewOpponent(this.context.characters, this.context.character.user_id)
+        const opponent = this.context.createNewOpponent(this.context.characters, this.context.character.user_id);
 
         this.setState({
             character: character,
@@ -57,8 +57,8 @@ export default class Fight extends Component {
                     char_2_id: opponent.id
                 })
 
-                this.context.updateCharacter(character, 'fight')
-                this.context.updateCharacter(opponent, 'fight')
+                this.context.updateCharacter(character, 'fight');
+                this.context.updateCharacter(opponent, 'fight');
                 const matchObject = {
                     winner: character.char_name,
                     loser: opponent.char_name,
@@ -66,7 +66,7 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                this.updateMatches(matchObject)
+                this.updateMatches(matchObject);
             }
             else if (userRoll < oppRoll) {
                 // update losses
@@ -80,8 +80,8 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-                this.context.updateCharacter(character, 'fight')
-                this.context.updateCharacter(opponent, 'fight')
+                this.context.updateCharacter(character, 'fight');
+                this.context.updateCharacter(opponent, 'fight');
                 const matchObject = {
                     winner: opponent.char_name,
                     loser: character.char_name,
@@ -89,7 +89,7 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                this.updateMatches(matchObject)
+                this.updateMatches(matchObject);
             }
             else if (userRoll === oppRoll) {
                 this.setState({
@@ -116,9 +116,9 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-               
-                this.context.updateCharacter(character, 'fight')
-                this.context.updateCharacter(opponent, 'fight')
+
+                this.context.updateCharacter(character, 'fight');
+                this.context.updateCharacter(opponent, 'fight');
                 const matchObject = {
                     winner: character.char_name,
                     loser: opponent.char_name,
@@ -126,7 +126,7 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                this.updateMatches(matchObject)
+                this.updateMatches(matchObject);
             }
             else if (userRoll < oppRoll) {
                 opponent.current_points = Number(opponent.current_points) + 2;
@@ -139,9 +139,9 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id
                 })
-               
-                this.context.updateCharacter(character, 'fight')
-                this.context.updateCharacter(opponent, 'fight')
+
+                this.context.updateCharacter(character, 'fight');
+                this.context.updateCharacter(opponent, 'fight');
                 const matchObject = {
                     winner: opponent.char_name,
                     loser: character.char_name,
@@ -149,7 +149,7 @@ export default class Fight extends Component {
                     char_2_id: opponent.id,
                     points: 2
                 }
-                this.updateMatches(matchObject)
+                this.updateMatches(matchObject);
             }
             else if (userRoll === oppRoll) {
                 this.setState({
@@ -176,9 +176,9 @@ export default class Fight extends Component {
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error(res.status)
+                    throw new Error(res.status);
                 }
-                return res.json()
+                return res.json();
             })
             .catch(error => this.setState({ error }))
     }
@@ -212,9 +212,9 @@ export default class Fight extends Component {
 
     handleButtonClick = type => {
         if (type === 'Fight') {
-            this.handleFight(this.state.character, this.state.opponent)
+            this.handleFight(this.state.character, this.state.opponent);
         } else {
-            this.updateNewOpponent()
+            this.updateNewOpponent();
         }
     }
 
@@ -235,22 +235,22 @@ export default class Fight extends Component {
         return (
             <div>
                 {!this.state.character || !this.state.opponent
-                ? <Redirect to="/message"/>
-                :
-                <div>
-                <header className="header" role="banner">
-                    <h1>Fight!</h1>
-                </header>
-                <FightProfile
-                    character={this.context.character} />
+                    ? <Redirect to="/message" />
+                    :
+                    <div>
+                        <header className="header" role="banner">
+                            <h1>Fight!</h1>
+                        </header>
+                        <FightProfile
+                            character={this.context.character} />
 
-                <div className="winner-button-display">
-                    {button}
-                    <p>{this.state.winnerText}&nbsp;</p>
-                </div>
-                <FightProfile
-                character={this.state.opponent} />   
-                </div>}         
+                        <div className="winner-button-display">
+                            {button}
+                            <p>{this.state.winnerText}&nbsp;</p>
+                        </div>
+                        <FightProfile
+                            character={this.state.opponent} />
+                    </div>}
             </div>
         )
     }

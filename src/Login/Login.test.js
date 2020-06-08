@@ -11,13 +11,13 @@ describe(`Login component`, () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(
-            <Login/>,
+            <Login />,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
     })
-    it('renders the UI as expected',() =>{
-        const wrapper = shallow(<Login/>)
+    it('renders the UI as expected', () => {
+        const wrapper = shallow(<Login />)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
 })  

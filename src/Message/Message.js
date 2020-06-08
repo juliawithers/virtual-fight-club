@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import HandleLanding from '../HandleLanding/HandleLanding'
 
 export default class Message extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <header className="header" role="banner">
                     <h1>Virtual Fight Club</h1>

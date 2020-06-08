@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import {FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ValidateUpdate from './ValidateUpdate'
 import context from '../context'
@@ -20,14 +20,14 @@ class CharacterUpdate extends Component {
     }
 
     componentDidMount() {
-        
+
         this.setState({
             attrpoints: Number(this.context.character.attrpoints)
         })
     }
 
     handleErrors() {
-        if(this.state.updStrength < 0){
+        if (this.state.updStrength < 0) {
             this.setState({
                 updStrength: 0,
                 updIntelligence: 0,
@@ -37,17 +37,17 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
-        if(this.state.updIntelligence < 0){
+        if (this.state.updIntelligence < 0) {
             this.setState({
                 updStrength: 0,
                 updIntelligence: 0,
@@ -57,17 +57,17 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
-        if(this.state.updCharisma < 0){
+        if (this.state.updCharisma < 0) {
             this.setState({
                 updStrength: 0,
                 updIntelligence: 0,
@@ -77,18 +77,18 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
-        if(this.state.updAgility < 0){
-            
+        if (this.state.updAgility < 0) {
+
             this.setState({
                 updStrength: 0,
                 updIntelligence: 0,
@@ -98,15 +98,15 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Your entry must be a valid positive number'  
+                message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
 
         const strength = Number(this.state.updStrength) + Number(this.context.character.strength);
@@ -129,15 +129,15 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Sorry, you ran out of attribute points to distribute'  
+                message: 'Sorry, you ran out of attribute points to distribute'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
         if (diff < 0) {
             this.setState({
@@ -149,22 +149,22 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'  
+                message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
-        return false
+        return false;
     }
 
     submitUpdatedAttributes = e => {
         e.preventDefault();
-        
+
         const logic = this.handleErrors();
         if (logic === false) {
             const strength = Number(this.state.updStrength) + Number(this.context.character.strength);
@@ -177,7 +177,7 @@ class CharacterUpdate extends Component {
             const original = Number(this.context.character.strength) + Number(this.context.character.intelligence) + Number(this.context.character.charisma) + Number(this.context.character.agility);
 
             const diff = total - original;
-    
+
             const newAttributepoints = Number(this.context.character.attrpoints) - diff;
 
             const character = {
@@ -191,11 +191,11 @@ class CharacterUpdate extends Component {
             this.setState({
                 attrpoints: newAttributepoints
             })
-            
-            this.context.updateCharacter(character, 'attributes')
-            
+
+            this.context.updateCharacter(character, 'attributes');
+
             var elements = document.getElementsByTagName("input");
-            for (var i=0; i < elements.length; i++) {
+            for (var i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
@@ -209,22 +209,22 @@ class CharacterUpdate extends Component {
                 projIntelligence: '',
                 projCharisma: '',
                 projAgility: '',
-                message: 'Updated!'  
+                message: 'Updated!'
 
             })
             this.props.history.push(`/characterPage/${this.context.character.char_name}`)
         }
-        
+
     }
 
-    updateAttributes = e => {      
-        const value = parseInt(e.target.value);     
+    updateAttributes = e => {
+        const value = parseInt(e.target.value);
         const id = e.target.id;
-       
+
         if (isNaN(value)) {
             if (id === 'strength') {
                 this.setState({
-                    updStrength:'',
+                    updStrength: '',
                 })
             }
             if (id === 'intelligence') {
@@ -243,7 +243,7 @@ class CharacterUpdate extends Component {
                 })
             }
             this.setState({
-                message: 'Your entry must be a valid number' 
+                message: 'Your entry must be a valid number'
             })
         }
         else if (id === 'strength') {
@@ -272,60 +272,59 @@ class CharacterUpdate extends Component {
         }
     }
 
-    handleDeleteCharacter=()=>{
-        this.context.deleteCharacter(this.state.character.id)
+    handleDeleteCharacter = () => {
+        this.context.deleteCharacter(this.state.character.id);
         this.setState({
             formLogic: true
         })
     }
 
-    handleDeleteUser=()=>{
-        this.context.deleteUser(this.context.user_id)
+    handleDeleteUser = () => {
+        this.context.deleteUser(this.context.user_id);
     }
-    
-    render() {
-        const { strength, intelligence, charisma, agility } = this.state
 
+    render() {
+        const { strength, intelligence, charisma, agility } = this.state;
 
         return (
-        <div>
-            <form onSubmit={this.submitUpdatedAttributes}>
-                <h2>Update attributes:</h2>
-                <p>Points to distrubute: {this.state.attrpoints}</p>
-                <ValidateUpdate message={this.state.message} />
-                <div>
-                    <label htmlFor="strength">Strength: </label>
-                    <input onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
-                    <p className="projected">Projected: {this.state.projStrength}</p>
-                    <br />
-                    <label htmlFor="intelligence">Intelligence: </label>
-                    <input onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
-                    <p className="projected">Projected: {this.state.projIntelligence}</p>
-                    <br />
-                    <label htmlFor="charisma">Charisma: </label>
-                    <input onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
-                    <p className="projected">Projected: {this.state.projCharisma}</p>
-                    <br />
-                    <label htmlFor="agility">Agility: </label>
-                    <input onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
-                    <p className="projected">Projected: {this.state.projAgility}</p>
-                    <br />
-                </div>
-                <button type='submit'>UPDATE</button>
-            </form>
-            <button
-                className="delete-character"
-                onClick={this.handleDeleteCharacter}
-            >
-                <FontAwesomeIcon icon={faTrashAlt}/> character?
+            <div>
+                <form onSubmit={this.submitUpdatedAttributes}>
+                    <h2>Update attributes:</h2>
+                    <p>Points to distrubute: {this.state.attrpoints}</p>
+                    <ValidateUpdate message={this.state.message} />
+                    <div>
+                        <label htmlFor="strength">Strength: </label>
+                        <input onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
+                        <p className="projected">Projected: {this.state.projStrength}</p>
+                        <br />
+                        <label htmlFor="intelligence">Intelligence: </label>
+                        <input onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
+                        <p className="projected">Projected: {this.state.projIntelligence}</p>
+                        <br />
+                        <label htmlFor="charisma">Charisma: </label>
+                        <input onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
+                        <p className="projected">Projected: {this.state.projCharisma}</p>
+                        <br />
+                        <label htmlFor="agility">Agility: </label>
+                        <input onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
+                        <p className="projected">Projected: {this.state.projAgility}</p>
+                        <br />
+                    </div>
+                    <button type='submit'>UPDATE</button>
+                </form>
+                <button
+                    className="delete-character"
+                    onClick={this.handleDeleteCharacter}
+                >
+                    <FontAwesomeIcon icon={faTrashAlt} /> character?
             </button>
-            <button
-                className="delete-account"
-                onClick={this.handleDeleteUser}
-            >
-                <FontAwesomeIcon icon={faTrashAlt}/> account?
+                <button
+                    className="delete-account"
+                    onClick={this.handleDeleteUser}
+                >
+                    <FontAwesomeIcon icon={faTrashAlt} /> account?
             </button>
-        </div>
+            </div>
         )
     }
 }

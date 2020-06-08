@@ -11,7 +11,7 @@ export default class CreateAccount extends Component {
             password: '',
         }
     }
-    // validate username and password creation
+   
     handleUserInputErrors = () => {
         const username = this.state.username;
         const password = this.state.password;
@@ -20,16 +20,17 @@ export default class CreateAccount extends Component {
             this.setState({
                 message: 'Password must be between 7 and 15 characters, and include at least one digit, and one special character'
             })
-            return true
-        }    
+            return true;
+        }
         if (username.length < 4 || username.length > 12) {
             this.setState({
                 message: 'Username must be getween 4 and 12 characters'
             })
-            return true
+            return true;
         }
-        return false
+        return false;
     }
+    
     sendUserData = (e) => {
         e.preventDefault();
         const check = this.handleUserInputErrors();
@@ -38,9 +39,9 @@ export default class CreateAccount extends Component {
                 username: this.state.username,
                 passw: this.state.password
             }
-            this.context.submitUserInfo(object)
+            this.context.submitUserInfo(object);
         }
-        
+
     }
 
     updateUsername = (e) => {
@@ -64,16 +65,16 @@ export default class CreateAccount extends Component {
                 <form onSubmit={this.sendUserData}>
                     <div>
                         <label htmlFor="username">Username(must be between 4 and 12 characters): </label>
-                        <br/>
+                        <br />
                         <input type="text" name='username' id='username' onChange={this.updateUsername} />
                     </div>
                     <div>
                         <label htmlFor="password">Password (must be between 7 and 15 characters and include at least one digit and one special character): </label>
-                        <br/>
+                        <br />
                         <input type="password" name='password' id='password' onChange={this.updatePassword} />
                     </div>
                     <button type='submit'>Sign Up!</button>
-                    <ValidateCreateAccount message={this.state.message}/>
+                    <ValidateCreateAccount message={this.state.message} />
                 </form>
             </section>
         )

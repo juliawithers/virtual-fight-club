@@ -15,35 +15,35 @@ export default class Character extends Component {
         }
     }
 
-    componentDidMount(){
-        const character = this.context.character
+    componentDidMount() {
+        const character = this.context.character;
         this.setState({
             character: character,
         })
     }
 
-    render(){ 
-        return(
+    render() {
+        return (
             <div>
                 {!this.context.character
-                ? <Redirect to="/message"/>
-                :
-                <div>
-                <header className="header" role="banner">
-                <h1>
-                    {this.context.character.char_name === undefined
-                    ? 'Create your Character!'
-                    : this.context.character.char_name
-                    }
-                    </h1>
-                </header>
-                {this.context.character.char_name === undefined
-                ? <CharacterCreate/>
-                : <section>
-                    <CharacterDescription char={this.context.character}/>
-                    <CharacterUpdate char={this.context.character}/>  
-                  </section>}
-                </div>}
+                    ? <Redirect to="/message" />
+                    :
+                    <div>
+                        <header className="header" role="banner">
+                            <h1>
+                                {this.context.character.char_name === undefined
+                                    ? 'Create your Character!'
+                                    : this.context.character.char_name
+                                }
+                            </h1>
+                        </header>
+                        {this.context.character.char_name === undefined
+                            ? <CharacterCreate />
+                            : <section>
+                                <CharacterDescription char={this.context.character} />
+                                <CharacterUpdate char={this.context.character} />
+                            </section>}
+                    </div>}
             </div>
         )
     }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './FightProfile.css'
 
 export default class FightProfile extends Component {
-
     render() {
         const character = this.props.character;
         return (

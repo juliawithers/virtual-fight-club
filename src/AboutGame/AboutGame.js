@@ -3,8 +3,8 @@ import context from '../context'
 
 export default class AboutGame extends Component {
     static contextType = context;
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <header className="header" role="banner">
                     <h1>Virtual Fight Club</h1>
@@ -12,7 +12,7 @@ export default class AboutGame extends Component {
                 <section>
                     <h2>Character Development</h2>
                     <p>In Virtual Fight Club you can create a character and fight opponents! Get to the next level by gaining points from wins. 50 points to reach each new level. Once you reach the next level you can update the character attributes of your choosing. 10 attribute points are given at each level. Strength, Intelligence, Charisma, and Agility are the attributes you must work with. Each character is unique! </p>
-                    
+
                     <p>And remember, the FIRST RULE OF FIGHT CLUB: You do not talk about (virtual) Fight Club!</p>
                 </section>
                 <section>

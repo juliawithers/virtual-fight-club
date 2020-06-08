@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import context from '../context'
 import ValidateCreate from './ValidateCreate'
-import {FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 export default class CharacterCreate extends Component {
@@ -34,13 +34,13 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
         if (this.state.updIntelligence < 0) {
             this.setState({
@@ -50,13 +50,13 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
         if (this.state.updCharisma < 0) {
             this.setState({
@@ -66,13 +66,13 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
         if (this.state.updAgility < 0) {
 
@@ -83,13 +83,13 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
 
         const total = Number(this.state.updStrength) + Number(this.state.updIntelligence) + Number(this.state.updCharisma) + Number(this.state.updAgility);
@@ -103,18 +103,18 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 attrpoints: 10,
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "text") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         } else if (this.state.char_name === '') {
             this.setState({
                 message: 'you must enter a character name'
             })
-            return true
+            return true;
         }
         if (total >= 0 && total < 10) {
             this.setState({
@@ -125,13 +125,13 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 attrpoints: 10,
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "text") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         }
         if (total < 0) {
             this.setState({
@@ -141,15 +141,15 @@ export default class CharacterCreate extends Component {
                 updAgility: '',
                 message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'
             })
-            var elements = document.getElementsByTagName("input");
-            for (var i = 0; i < elements.length; i++) {
+            let elements = document.getElementsByTagName("input");
+            for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
                     elements[i].value = "";
                 }
             }
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     }
 
@@ -163,8 +163,6 @@ export default class CharacterCreate extends Component {
             const intelligence = Number(this.state.updIntelligence);
             const charisma = Number(this.state.updCharisma);
             const agility = Number(this.state.updAgility);
-
-            const total = Number(strength) + Number(intelligence) + Number(charisma) + Number(agility);
 
             const character = {
                 auth: this.context.auth,
@@ -243,11 +241,11 @@ export default class CharacterCreate extends Component {
     }
 
     handleDeleteUser = () => {
-        this.context.deleteUser(this.context.user_id)
+        this.context.deleteUser(this.context.user_id);
     }
 
     render() {
-        const { character_name, strength, intelligence, charisma, agility } = this.state
+        const { character_name, strength, intelligence, charisma, agility } = this.state;
         return (
             <div>
                 <form onSubmit={this.submitUpdatedAttributes}>
@@ -277,8 +275,8 @@ export default class CharacterCreate extends Component {
                 <button
                     className="delete-account"
                     onClick={this.handleDeleteUser}
-                    >
-                        <FontAwesomeIcon icon={faTrashAlt}/> account?
+                >
+                    <FontAwesomeIcon icon={faTrashAlt} /> account?
                 </button>
             </div>
         )

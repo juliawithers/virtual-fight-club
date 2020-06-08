@@ -11,13 +11,13 @@ describe(`CreateAccount component`, () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(
-            <CreateAccount/>,
+            <CreateAccount />,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
     })
-    it('renders the UI as expected',() =>{
-        const wrapper = shallow(<CreateAccount/>)
+    it('renders the UI as expected', () => {
+        const wrapper = shallow(<CreateAccount />)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
 })  

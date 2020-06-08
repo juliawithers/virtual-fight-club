@@ -6,14 +6,14 @@ import context from '../context'
 
 
 export default class Landing extends Component {
-    static contextType=context;
-    
-    render(){
-        return(
+    static contextType = context;
+
+    render() {
+        return (
             <div>
-                <AboutGame/>
-                <CreateAccount/>
-                <Login/>
+                <AboutGame />
+                <CreateAccount />
+                <Login />
             </div>
         )
     }

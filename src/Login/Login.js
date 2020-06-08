@@ -18,7 +18,7 @@ export default class Login extends Component {
                 username: value
             })
         }
-        if ( id === 'login-password') {
+        if (id === 'login-password') {
             this.setState({
                 password: value
             })
@@ -27,12 +27,12 @@ export default class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.context.handleLoginSubmit(this.state.username,this.state.password)
+        this.context.handleLoginSubmit(this.state.username, this.state.password);
     }
 
-    render(){
+    render() {
         const { username, password } = this.state;
-        return(
+        return (
             <section>
                 <h2>Login</h2>
                 <form onSubmit={this.handleSubmit}>
@@ -42,10 +42,10 @@ export default class Login extends Component {
                     </div>
                     <div>
                         <label htmlFor="login-password">Password: </label>
-                        <input onChange={this.handleChangeInput}type="password" name='login-password' id='login-password'
+                        <input onChange={this.handleChangeInput} type="password" name='login-password' id='login-password'
                         value={password} />
                     </div>
-                    <ValidateLogin message={this.context.error}/>
+                    <ValidateLogin message={this.context.error} />
                     <button type='submit'>Login</button>
                 </form>
             </section>

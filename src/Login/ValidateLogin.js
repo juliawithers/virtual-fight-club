@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 export default function ValidateLogin(props) {
-  if(props.message) {
+  if (props.message) {
     return (
       <div className="error">{props.message}</div>
     );
@@ -10,6 +10,6 @@ export default function ValidateLogin(props) {
   return <></>
 }
 
-ValidateLogin.propTypes={
-    message: PropTypes.string.isRequired
+ValidateLogin.propTypes = {
+  message: PropTypes.string.isRequired
 }

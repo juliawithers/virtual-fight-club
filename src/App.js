@@ -8,6 +8,7 @@ import AboutGame from './AboutGame/AboutGame'
 import Fight from './Fight/Fight'
 import context from './context'
 import config from './config'
+import { Helmet } from 'react-helmet'
 
 class App extends Component {
   static contextType = context;
@@ -46,9 +47,9 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .then(characters => {
         this.setState({
@@ -56,7 +57,6 @@ class App extends Component {
         })
       })
       .catch(error => {
-        console.log(error)
         this.setState({ error })
       })
   }
@@ -65,8 +65,8 @@ class App extends Component {
 
     const opponents = characters.filter(player => player.user_id !== userId);
 
-    const opponent = opponents[Math.floor(Math.random() * Math.floor(opponents.length))];  
-    return opponent
+    const opponent = opponents[Math.floor(Math.random() * Math.floor(opponents.length))];
+    return opponent;
   }
 
   handleLoginSubmit = (username, password) => {
@@ -83,9 +83,9 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .then(data => {
         const opponent = this.createNewOpponent(this.state.characters, data.user.id)
@@ -110,12 +110,11 @@ class App extends Component {
             opponent: opponent,
             character: character,
             attrpoints: character.attrpoints
-          })  
+          })
         }
-        
+
       })
       .catch(error => {
-        console.log(error)
         this.setState({
           error: 'Password or Username is incorrect, please verify login information'
         })
@@ -134,9 +133,9 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .then(user => {
         this.setState({
@@ -146,11 +145,11 @@ class App extends Component {
           login: true
         })
       })
-      .catch(error => 
-        this.setState({error})
-        )
+      .catch(error =>
+        this.setState({ error })
+      )
   }
- 
+
   createCharacter = (character) => {
     this.getCharactersList()
     fetch(config.API_CHARACTERS_ENDPOINT, {
@@ -162,9 +161,9 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .then(character => {
         this.setState({
@@ -173,7 +172,6 @@ class App extends Component {
         })
       })
       .catch(error => {
-        console.log(error)
         this.setState({ error })
       })
   }
@@ -188,20 +186,20 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .catch(error => this.setState({ error }))
     if (reason === 'fight') {
-      this.getCharacter(this.state.character.user_id)
-      this.getCharactersList()
+      this.getCharacter(this.state.character.user_id);
+      this.getCharactersList();
     } else if (reason === 'attributes') {
-      this.getCharacter(this.state.character.user_id)
+      this.getCharacter(this.state.character.user_id);
     }
   }
 
-  getCharacter = (user_id) => { 
+  getCharacter = (user_id) => {
     fetch(config.API_CHARACTERS_ENDPOINT + `/${user_id}`, {
       method: 'GET',
       headers: {
@@ -210,9 +208,9 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .then(character => {
         this.setState({
@@ -231,9 +229,9 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .then(characters => {
         this.setState({
@@ -244,7 +242,7 @@ class App extends Component {
   }
 
   deleteCharacter = (charId) => {
-    const idObject = {id: charId};
+    const idObject = { id: charId };
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'DELETE',
       body: JSON.stringify(idObject),
@@ -254,16 +252,16 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
-        return res.json()
+        return res.json();
       })
       .catch(error => this.setState({ error }))
 
   }
 
   deleteUser = (userId) => {
-    const idObject = {id: userId}
+    const idObject = { id: userId }
     fetch(config.API_USERS_ENDPOINT, {
       method: 'DELETE',
       body: JSON.stringify(idObject),
@@ -273,14 +271,14 @@ class App extends Component {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(res.status)
+          throw new Error(res.status);
         }
 
         this.setState({
           login: false
         })
         this.props.history.push('/')
-        return res.json()
+        return res.json();
       })
       .catch(error => this.setState({ error }))
   }
@@ -311,15 +309,7 @@ class App extends Component {
           </button>
         </div>
       )
-    } else {
-      return (
-        <div></div>
-      )
     }
-  }
-
-  authorizedRoutes(){
-
   }
 
   createMainRoutes() {
@@ -355,7 +345,7 @@ class App extends Component {
   }
 
   render() {
-    
+
     const contextValue = {
       characters: this.state.characters,
       usernameErr: this.state.usernameErr,
@@ -383,15 +373,22 @@ class App extends Component {
 
     return (
       <context.Provider value={contextValue}>
-        <body>
-          <div className="container">
-          <nav role="navigation">{this.createNavRoutes()}</nav>
-          <main role="main">
-            {this.createMainRoutes()}
-          </main>
-          <footer className="footer" role="content-info"><Link className="link" to="/">Virtual Fight Club</Link></footer>
+        <>
+          <Helmet>
+            <title>Virtual Fight Club</title>
+            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+            <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+          </Helmet>
+          <div className="body">
+            <div className="container">
+              <nav role="navigation">{this.createNavRoutes()}</nav>
+              <main role="main">
+                {this.createMainRoutes()}
+              </main>
+              <footer className="footer" role="contentinfo"><Link className="link" to="/">Virtual Fight Club</Link></footer>
+            </div>
           </div>
-        </body>
+        </>
       </context.Provider>
     )
   }
