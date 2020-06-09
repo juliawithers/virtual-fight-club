@@ -379,7 +379,7 @@ class App extends Component {
             <title>Virtual Fight Club</title>
             <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
             <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-            <link rel="manifest" href="/manifest.json" />
+            <link type="application/manifest+json" rel="manifest" crossorigin="use-credentials" href="%PUBLIC_URL%/manifest.json" />
           </Helmet>
           <div className="body">
             <div className="container">
