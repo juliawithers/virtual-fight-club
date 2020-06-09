@@ -30,7 +30,7 @@ export default class CreateAccount extends Component {
         }
         return false;
     }
-    
+
     sendUserData = (e) => {
         e.preventDefault();
         const check = this.handleUserInputErrors();
@@ -66,12 +66,12 @@ export default class CreateAccount extends Component {
                     <div>
                         <label htmlFor="username">Username(must be between 4 and 12 characters): </label>
                         <br />
-                        <input type="text" name='username' id='username' onChange={this.updateUsername} />
+                        <input className="username" type="text" name='username' id='username' onChange={this.updateUsername} />
                     </div>
                     <div>
                         <label htmlFor="password">Password (must be between 7 and 15 characters and include at least one digit and one special character): </label>
                         <br />
-                        <input type="password" name='password' id='password' onChange={this.updatePassword} />
+                        <input className="password" type="password" name='password' id='password' onChange={this.updatePassword} />
                     </div>
                     <button type='submit'>Sign Up!</button>
                     <ValidateCreateAccount message={this.state.message} />

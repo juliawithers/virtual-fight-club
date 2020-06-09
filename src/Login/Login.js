@@ -38,11 +38,11 @@ export default class Login extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label htmlFor="login-username">Username: </label>
-                        <input onChange={this.handleChangeInput} type="text" name='login-username' id='login-username' value={username} />
+                        <input className="login-username" onChange={this.handleChangeInput} type="text" name='login-username' id='login-username' value={username} />
                     </div>
                     <div>
                         <label htmlFor="login-password">Password: </label>
-                        <input onChange={this.handleChangeInput} type="password" name='login-password' id='login-password'
+                        <input className="login-password" onChange={this.handleChangeInput} type="password" name='login-password' id='login-password'
                         value={password} />
                     </div>
                     <ValidateLogin message={this.context.error} />

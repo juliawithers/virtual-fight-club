@@ -11,12 +11,12 @@ export default class CharacterDescription extends Component {
             <div className="description">
                 <article className="article">
                     <div className="left">
-                        <h3>Wins: {character.wins}</h3>
-                        <h3>Current Level: {character.current_level}</h3>
+                        <p>Wins: {character.wins}</p>
+                        <p>Level: {character.current_level}</p>
                     </div>
                     <div className="right">
-                        <h3>Losses: {character.losses}</h3>
-                        <h3>Current Points: {character.current_points}</h3>
+                        <p>Losses: {character.losses}</p>
+                        <p>Points: {character.current_points}</p>
                     </div>
                 </article>
                 <h3>Attributes:</h3>

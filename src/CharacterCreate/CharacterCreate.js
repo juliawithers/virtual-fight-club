@@ -258,16 +258,16 @@ export default class CharacterCreate extends Component {
 
                     <div>
                         <label htmlFor="strength">Strength </label>
-                        <input onChange={this.updateAttributes} type="text" name='strength' id='strength' value={strength} />
+                        <input className="input" onChange={this.updateAttributes} type="text" name='strength' id='strength' value={strength} />
                         <br />
                         <label htmlFor="intelligence">Intelligence </label>
-                        <input onChange={this.updateAttributes} type="text" name='intelligence' id='intelligence' value={intelligence} />
+                        <input className="input" onChange={this.updateAttributes} type="text" name='intelligence' id='intelligence' value={intelligence} />
                         <br />
                         <label htmlFor="charisma">Charisma </label>
-                        <input onChange={this.updateAttributes} type="text" name='charisma' id='charisma' value={charisma} />
+                        <input className="input" onChange={this.updateAttributes} type="text" name='charisma' id='charisma' value={charisma} />
                         <br />
                         <label htmlFor="agility">Agility </label>
-                        <input onChange={this.updateAttributes} type="text" name='agility' id='agility' value={agility} />
+                        <input className="input" onChange={this.updateAttributes} type="text" name='agility' id='agility' value={agility} />
                         <br />
                     </div>
                     <button className="submit" type='submit'>CREATE</button>

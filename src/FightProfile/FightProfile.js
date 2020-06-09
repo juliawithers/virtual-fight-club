@@ -10,13 +10,13 @@ export default class FightProfile extends Component {
                 <section className="character">
                     <div className="left-fight">
                         <h3>Wins: {character.wins}</h3>
-                        <p>Current Level: {character.current_level}</p>
+                        <p>Level: {character.current_level}</p>
                         <p>Strength: {character.strength}</p>
                         <p>Intelligence: {character.intelligence}</p>
                     </div>
                     <div className="right-fight">
                         <h3>Losses: {character.losses}</h3>
-                        <p>Current Points: {character.current_points}</p>
+                        <p>Points: {character.current_points}</p>
                         <p>Agility: {character.agility}</p>
                         <p>Charisma: {character.charisma}</p>
                     </div>

@@ -98,7 +98,7 @@ class App extends Component {
             username: data.user.username,
             auth: data.user.auth,
             opponent: opponent,
-            character: [],
+            character: {},
             attrpoints: ''
           })
         } else {
@@ -168,7 +168,7 @@ class App extends Component {
       .then(character => {
         this.setState({
           character: character,
-          attrpoints: Number(character.attrpoints)
+          attrpoints: Number(character.attrpoints),
         })
       })
       .catch(error => {
@@ -309,6 +309,8 @@ class App extends Component {
           </button>
         </div>
       )
+    } else {
+      return <div></div>
     }
   }
 
@@ -345,7 +347,6 @@ class App extends Component {
   }
 
   render() {
-
     const contextValue = {
       characters: this.state.characters,
       usernameErr: this.state.usernameErr,

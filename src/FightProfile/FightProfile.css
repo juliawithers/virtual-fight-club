@@ -12,18 +12,17 @@ h2>.char-name{
     margin-bottom: 0px;
 }
 .left-fight{
-    display: flex;
-    flex-direction: column;
+    display: block;
     text-align: right;
-    margin-left: 15px;
     margin-right: 15px;
+    width: 120px;
 }
 
 .right-fight{
-    display: flex;
-    flex-direction: column;
+    display: block;
     text-align: left;
     margin-left: 15px;
+    width: 120px;
 }
 
 .left-fight > p{
@@ -31,4 +30,24 @@ h2>.char-name{
 }
 .right-fight > p{
     margin: 0;
+}
+
+@media screen and (min-width: 320px) {
+    .left-fight{
+        width: 220px;
+    }
+    
+    .right-fight{
+        width: 220px;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .left-fight{
+        width: 400px;
+    }
+    
+    .right-fight{
+        width: 400px;
+    }
 }

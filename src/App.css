@@ -5,7 +5,7 @@
 .body {
   font-family: "Open Sans",
   sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   color: #003333;
   text-align: center;
   background-color: #f9f1f1;
@@ -51,6 +51,7 @@ nav {
 nav > div {
   display: flex;
   justify-content: space-evenly;
+  line-height:2;
 }
 
 .nav-link {
@@ -82,6 +83,10 @@ button{
   margin: 5px;
 }
 
+.logout {
+  margin:0;
+}
+
 button:hover{
   cursor: pointer;
 }
@@ -100,6 +105,39 @@ p + p {
   margin-top: 15px;
 }
 
-input{
+input {
+  margin-top: 5px;
+}
+
+.input{
   padding: 5px;
+  width: 75px;
+}
+
+.login-username {
+  width: 150px;
+}
+
+.login-password {
+  width: 150px;
+}
+
+.username {
+  width: 150px;
+}
+
+.password {
+  width: 150px;
+}
+
+@media screen and (min-width: 320px){
+  .body {
+    font-size: 20px;  
+  }
+  .nav-link {
+    text-decoration: none;
+    color: #003333;
+    padding: 5px;
+    line-height: 1;
+  }
 }

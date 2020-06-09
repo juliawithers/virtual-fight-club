@@ -294,19 +294,19 @@ class CharacterUpdate extends Component {
                     <ValidateUpdate message={this.state.message} />
                     <div>
                         <label htmlFor="strength">Strength: </label>
-                        <input onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
+                        <input className="input" onChange={this.updateAttributes} type="number" name='strength' id='strength' value={strength} />
                         <p className="projected">Projected: {this.state.projStrength}</p>
                         <br />
                         <label htmlFor="intelligence">Intelligence: </label>
-                        <input onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
+                        <input className="input" onChange={this.updateAttributes} type="number" name='intelligence' id='intelligence' value={intelligence} />
                         <p className="projected">Projected: {this.state.projIntelligence}</p>
                         <br />
                         <label htmlFor="charisma">Charisma: </label>
-                        <input onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
+                        <input className="input" onChange={this.updateAttributes} type="number" name='charisma' id='charisma' value={charisma} />
                         <p className="projected">Projected: {this.state.projCharisma}</p>
                         <br />
                         <label htmlFor="agility">Agility: </label>
-                        <input onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
+                        <input className="input" onChange={this.updateAttributes} type="number" name='agility' id='agility' value={agility} />
                         <p className="projected">Projected: {this.state.projAgility}</p>
                         <br />
                     </div>
