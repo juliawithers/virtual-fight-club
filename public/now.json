@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "virtual-fight-club",
+    "name": "Virtual Fight Club",
     "routes": [
       {
         "src": "^/static/(.*)",
