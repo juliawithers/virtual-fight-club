@@ -16,6 +16,7 @@ exports[`CreateAccount component renders the UI as expected 1`] = `
       </label>
       <br />
       <input
+        className="username"
         id="username"
         name="username"
         onChange={[Function]}
@@ -30,6 +31,7 @@ exports[`CreateAccount component renders the UI as expected 1`] = `
       </label>
       <br />
       <input
+        className="password"
         id="password"
         name="password"
         onChange={[Function]}

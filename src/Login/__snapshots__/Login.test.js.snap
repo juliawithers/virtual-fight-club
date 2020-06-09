@@ -15,6 +15,7 @@ exports[`Login component renders the UI as expected 1`] = `
         Username: 
       </label>
       <input
+        className="login-username"
         id="login-username"
         name="login-username"
         onChange={[Function]}
@@ -29,6 +30,7 @@ exports[`Login component renders the UI as expected 1`] = `
         Password: 
       </label>
       <input
+        className="login-password"
         id="login-password"
         name="login-password"
         onChange={[Function]}
