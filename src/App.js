@@ -395,8 +395,8 @@ class App extends Component {
             <meta name="msapplication-TileColor" content="#ffffff"/>
             <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
             <meta name="theme-color" content="#ffffff"/>
-            <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon" />
-            <link rel="icon" href="/favicon.ico?" type="image/x-icon" />
+            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+            <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             <link type="application/json" rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
           </Helmet>
           <div className="body">
