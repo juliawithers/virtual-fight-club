@@ -379,7 +379,7 @@ class App extends Component {
             <title>Virtual Fight Club</title>
             <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
             <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-            <link rel="manifest" href="/build/mainfest.json" />
+            <link rel="manifest" href="/manifest.json" />
           </Helmet>
           <div className="body">
             <div className="container">
