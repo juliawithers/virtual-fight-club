@@ -11,5 +11,5 @@ export default function ValidateLogin(props) {
 }
 
 ValidateLogin.propTypes = {
-  message: PropTypes.string.isRequired
+  message: PropTypes.string
 }
