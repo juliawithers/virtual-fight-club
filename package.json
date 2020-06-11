@@ -27,9 +27,6 @@
     "predeploy": "npm run build",
     "deploy": "now --prod"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -41,8 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^7.2.0"
   }
 }
