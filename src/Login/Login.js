@@ -36,6 +36,7 @@ export default class Login extends Component {
             <section>
                 <h2>Login</h2>
                 <p>Please use username: UseThisUser and password: hello123! to login as a grader</p>
+                <br/>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label htmlFor="login-username">Username: </label>
