@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import context from '../context'
-import { Link, withRouter } from 'react-router-dom'
-import ValidateCreate from './ValidateCreate'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import React, { Component } from 'react';
+import context from '../context';
+import { Link, withRouter } from 'react-router-dom';
+import ValidateCreate from './ValidateCreate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 class CharacterCreate extends Component {
     static contextType = context;
@@ -17,13 +17,13 @@ class CharacterCreate extends Component {
             updAgility: 0,
             attrpoints: '',
             message: ''
-        }
+        };
     }
 
     componentDidMount() {
         this.setState({
             attrpoints: 10
-        })
+        });
     }
 
     handleErrors() {
@@ -34,7 +34,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -50,7 +50,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -66,7 +66,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -83,7 +83,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -103,7 +103,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 attrpoints: 10,
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "text") {
@@ -114,7 +114,7 @@ class CharacterCreate extends Component {
         } else if (this.state.char_name === '') {
             this.setState({
                 message: 'you must enter a character name'
-            })
+            });
             return true;
         }
         if (total >= 0 && total < 10) {
@@ -125,7 +125,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 attrpoints: 10,
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "text") {
@@ -141,7 +141,7 @@ class CharacterCreate extends Component {
                 updCharisma: '',
                 updAgility: '',
                 message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -179,7 +179,7 @@ class CharacterCreate extends Component {
                 wins: 0,
                 losses: 0,
                 attrpoints: 0
-            }
+            };
             this.context.createCharacter(character);
         }
     }
@@ -191,54 +191,54 @@ class CharacterCreate extends Component {
             if (value === '') {
                 this.setState({
                     updStrength: 0,
-                })
+                });
             } else {
                 this.setState({
                     updStrength: parseInt(value)
-                })
+                });
             }
         }
         if (id === 'intelligence') {
             if (value === '') {
                 this.setState({
                     updIntelligence: 0,
-                })
+                });
             } else {
                 this.setState({
                     updIntelligence: parseInt(value),
-                })
+                });
             }
         }
         if (id === 'charisma') {
             if (value === '') {
                 this.setState({
                     updCharisma: 0,
-                })
+                });
             } else {
                 this.setState({
                     updCharisma: parseInt(value),
-                })
+                });
             }
         }
         if (id === 'agility') {
             if (value === '') {
                 this.setState({
                     updAgility: 0,
-                })
+                });
             } else {
                 this.setState({
                     updAgility: parseInt(value),
-                })
+                });
             }
         }
         if (id === 'character-name') {
             this.setState({
                 char_name: value
-            })
+            });
         }
         this.setState({
             message: ''
-        })
+        });
     }
 
     handleDeleteUser = () => {
@@ -277,7 +277,7 @@ class CharacterCreate extends Component {
                     className="delete-account"
                     onClick={this.handleDeleteUser}
                 >
-                    <Link to='/'>
+                    <Link className="link" to='/'>
                         <FontAwesomeIcon icon={faTrashAlt} /> account?
                     </Link>
                     

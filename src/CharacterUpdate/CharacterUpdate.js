@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import ValidateUpdate from './ValidateUpdate'
-import context from '../context'
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import ValidateUpdate from './ValidateUpdate';
+import context from '../context';
 
 class CharacterUpdate extends Component {
     static contextType = context;
@@ -16,14 +16,14 @@ class CharacterUpdate extends Component {
             updAgility: 0,
             attrpoints: '',
             message: '',
-        }
+        };
     }
 
     componentDidMount() {
 
         this.setState({
             attrpoints: Number(this.context.character.attrpoints)
-        })
+        });
     }
 
     handleErrors() {
@@ -38,7 +38,7 @@ class CharacterUpdate extends Component {
                 projCharisma: '',
                 projAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -58,7 +58,7 @@ class CharacterUpdate extends Component {
                 projCharisma: '',
                 projAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -78,7 +78,7 @@ class CharacterUpdate extends Component {
                 projCharisma: '',
                 projAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -99,7 +99,7 @@ class CharacterUpdate extends Component {
                 projCharisma: '',
                 projAgility: '',
                 message: 'Your entry must be a valid positive number'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -130,7 +130,7 @@ class CharacterUpdate extends Component {
                 projCharisma: '',
                 projAgility: '',
                 message: 'Sorry, you ran out of attribute points to distribute'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -150,7 +150,7 @@ class CharacterUpdate extends Component {
                 projCharisma: '',
                 projAgility: '',
                 message: 'Sorry, one of your inputs was negative, only positive number inputs are accepted'
-            })
+            });
             let elements = document.getElementsByTagName("input");
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type === "number") {
@@ -211,7 +211,7 @@ class CharacterUpdate extends Component {
                 projAgility: '',
                 message: 'Updated!'
 
-            })
+            });
             this.props.history.push(`/characterPage/${this.context.character.char_name}`)
         }
 
@@ -225,50 +225,50 @@ class CharacterUpdate extends Component {
             if (id === 'strength') {
                 this.setState({
                     updStrength: '',
-                })
+                });
             }
             if (id === 'intelligence') {
                 this.setState({
                     updIntelligence: '',
-                })
+                });
             }
             if (id === 'charisma') {
                 this.setState({
                     updCharisma: '',
-                })
+                });
             }
             if (id === 'agility') {
                 this.setState({
                     updAgility: '',
-                })
+                });
             }
             this.setState({
                 message: 'Your entry must be a valid number'
-            })
+            });
         }
         else if (id === 'strength') {
             this.setState({
                 updStrength: value,
                 projStrength: value + Number(this.context.character.strength)
-            })
+            });
         }
         else if (id === 'intelligence') {
             this.setState({
                 updIntelligence: value,
                 projIntelligence: value + Number(this.context.character.intelligence)
-            })
+            });
         }
         else if (id === 'charisma') {
             this.setState({
                 updCharisma: value,
                 projCharisma: value + Number(this.context.character.charisma)
-            })
+            });
         }
         else if (id === 'agility') {
             this.setState({
                 updAgility: value,
                 projAgility: value + Number(this.context.character.agility)
-            })
+            });
         }
     }
 
@@ -317,7 +317,7 @@ class CharacterUpdate extends Component {
                     className="delete-character"
                     onClick={this.handleDeleteCharacter}
                 >
-                    <Link to='/'>
+                    <Link className="link" to='/'>
                         <FontAwesomeIcon icon={faTrashAlt} /> character?
                     </Link>
                     
@@ -326,7 +326,7 @@ class CharacterUpdate extends Component {
                     className="delete-account"
                     onClick={this.handleDeleteUser}
                 > 
-                <Link to='/'>
+                <Link className="link" to='/'>
                     <FontAwesomeIcon icon={faTrashAlt} /> account?
                 </Link>
             </button>

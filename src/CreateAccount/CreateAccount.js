@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import context from '../context'
+import React, { Component } from 'react';
+import context from '../context';
 import ValidateCreateAccount from './ValidateCreateAccount';
 
 export default class CreateAccount extends Component {
@@ -9,7 +9,7 @@ export default class CreateAccount extends Component {
         this.state = {
             username: '',
             password: '',
-        }
+        };
     }
    
     handleUserInputErrors = () => {
@@ -19,13 +19,13 @@ export default class CreateAccount extends Component {
         if (!password.match(validateText)) {
             this.setState({
                 message: 'Password must be between 7 and 15 characters, and include at least one digit, and one special character'
-            })
+            });
             return true;
         }
         if (username.length < 4 || username.length > 12) {
             this.setState({
                 message: 'Username must be getween 4 and 12 characters'
-            })
+            });
             return true;
         }
         return false;
@@ -38,7 +38,7 @@ export default class CreateAccount extends Component {
             const object = {
                 username: this.state.username,
                 passw: this.state.password
-            }
+            };
             this.context.submitUserInfo(object);
         }
 
@@ -48,14 +48,14 @@ export default class CreateAccount extends Component {
         const username = e.target.value;
         this.setState({
             username: username
-        })
+        });
     }
 
     updatePassword = (e) => {
         const password = e.target.value;
         this.setState({
             password: password
-        })
+        });
     }
 
     render() {

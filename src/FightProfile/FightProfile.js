@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import './FightProfile.css'
+import React, { Component } from 'react';
+import './FightProfile.css';
 
 export default class FightProfile extends Component {
     render() {

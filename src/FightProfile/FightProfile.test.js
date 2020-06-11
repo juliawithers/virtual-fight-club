@@ -1,10 +1,9 @@
 import React from 'react';
-import { configure } from 'enzyme'
+import { configure } from 'enzyme';
 import ReactDOM from 'react-dom';
-import FightProfile from './FightProfile'
-
-import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() })
+import FightProfile from './FightProfile';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
 
 describe(`Login component`, () => {
     it('renders without crashing', () => {
@@ -23,7 +22,7 @@ describe(`Login component`, () => {
             wins: 1,
             losses: 0,
             attrpoints: 0
-        }
+        };
         ReactDOM.render(
             <FightProfile character={characterObject} />,
             div

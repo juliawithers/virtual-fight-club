@@ -1,11 +1,10 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme'
-import toJson from 'enzyme-to-json'
+import { shallow, configure } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import ReactDOM from 'react-dom';
-import Landing from './Landing'
-
-import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() })
+import Landing from './Landing';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
 
 describe(`Landing component`, () => {
     it('renders without crashing', () => {

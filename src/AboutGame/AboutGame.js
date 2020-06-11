@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import context from '../context'
+import React, { Component } from 'react';
+import context from '../context';
 
 export default class AboutGame extends Component {
     static contextType = context;

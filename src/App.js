@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Route, Link, NavLink, withRouter } from 'react-router-dom'
+import { Route, Link, NavLink, withRouter } from 'react-router-dom';
 import './App.css';
-import Character from './Character/Character'
-import Message from './Message/Message'
-import HandleLanding from './HandleLanding/HandleLanding'
-import AboutGame from './AboutGame/AboutGame'
-import Fight from './Fight/Fight'
-import context from './context'
-import config from './config'
+import Character from './Character/Character';
+import Message from './Message/Message';
+import HandleLanding from './HandleLanding/HandleLanding';
+import AboutGame from './AboutGame/AboutGame';
+import Fight from './Fight/Fight';
+import context from './context';
+import config from './config';
 
 class App extends Component {
   static contextType = context;
@@ -34,7 +34,7 @@ class App extends Component {
       getCharactersList: () => { },
       createNewOpponent: () => { },
       createCharacter: () => { },
-    }
+    };
   }
 
   componentDidMount() {
@@ -72,7 +72,7 @@ class App extends Component {
     const object = {
       username: username,
       password: password
-    }
+    };
     fetch(config.API_LOGIN_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(object),
@@ -99,7 +99,7 @@ class App extends Component {
             opponent: opponent,
             character: {},
             attrpoints: ''
-          })
+          });
         } else {
           this.setState({
             login: data.login,
@@ -109,14 +109,14 @@ class App extends Component {
             opponent: opponent,
             character: character,
             attrpoints: character.attrpoints
-          })
+          });
         }
 
       })
       .catch(error => {
         this.setState({
           loginError: 'Password or Username is incorrect, please verify login information'
-        })
+        });
       })
   }
 
@@ -142,7 +142,7 @@ class App extends Component {
           user_id: user.id,
           username: user.username,
           login: true
-        })
+        });
       })
       .catch(error =>
         this.setState({ error })
@@ -150,7 +150,7 @@ class App extends Component {
   }
 
   createCharacter = (character) => {
-    this.getCharactersList()
+    this.getCharactersList();
     fetch(config.API_CHARACTERS_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify(character),
@@ -168,7 +168,7 @@ class App extends Component {
         this.setState({
           character: character,
           attrpoints: Number(character.attrpoints),
-        })
+        });
       })
       .catch(error => {
         this.setState({ error })
@@ -214,7 +214,7 @@ class App extends Component {
       .then(character => {
         this.setState({
           character: character
-        })
+        });
       })
       .catch(error => this.setState({ error }))
   }
@@ -235,7 +235,7 @@ class App extends Component {
       .then(characters => {
         this.setState({
           characters: characters
-        })
+        });
       })
       .catch(error => this.setState({ error }))
   }
@@ -261,12 +261,12 @@ class App extends Component {
         character: {},
         attrpoints: '',
         level: '',
-      })
+      });
       this.getCharactersList();
   }
 
   deleteUser = (userId) => {
-    const idObject = { id: userId }
+    const idObject = { id: userId };
     fetch(config.API_USERS_ENDPOINT, {
       method: 'DELETE',
       body: JSON.stringify(idObject),
@@ -291,7 +291,7 @@ class App extends Component {
         attrpoints: '',
         level: '',
         opponent: {},
-      })
+      });
       this.getCharactersList();
   }
 
@@ -299,7 +299,7 @@ class App extends Component {
     this.setState({
       login: false,
       character: {}
-    })
+    });
     this.props.history.push('/')
   }
 
@@ -382,7 +382,7 @@ class App extends Component {
       deleteUser: this.deleteUser,
       createCharacter: this.createCharacter,
       error: this.state.error
-    }
+    };
 
     return (
       <context.Provider value={contextValue}>

@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import CharacterCreate from '../CharacterCreate/CharacterCreate'
-import CharacterDescription from '../CharacterDescription/CharacterDescription'
-import CharacterUpdate from '../CharacterUpdate/CharacterUpdate'
-import context from '../context'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import CharacterCreate from '../CharacterCreate/CharacterCreate';
+import CharacterDescription from '../CharacterDescription/CharacterDescription';
+import CharacterUpdate from '../CharacterUpdate/CharacterUpdate';
+import context from '../context';
+import { Redirect } from 'react-router-dom';
 
 export default class Character extends Component {
     static contextType = context;
@@ -12,14 +12,14 @@ export default class Character extends Component {
         this.state = {
             character: [],
             formLogic: false,
-        }
+        };
     }
 
     componentDidMount() {
         const character = this.context.character;
         this.setState({
             character: character,
-        })
+        });
     }
 
     render() {

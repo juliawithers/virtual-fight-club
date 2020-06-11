@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import './CharacterDescription.css'
+import React, { Component } from 'react';
+import './CharacterDescription.css';
 
 export default class CharacterDescription extends Component {
     render() {

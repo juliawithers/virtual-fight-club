@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import context from '../context'
-import ValidateLogin from './ValidateLogin'
+import React, { Component } from 'react';
+import context from '../context';
+import ValidateLogin from './ValidateLogin';
 
 export default class Login extends Component {
     static contextType = context;
@@ -8,7 +8,7 @@ export default class Login extends Component {
     state = {
         username: '',
         password: ''
-    }
+    };
 
     handleChangeInput = e => {
         const value = e.target.value;
@@ -16,12 +16,12 @@ export default class Login extends Component {
         if (id === 'login-username') {
             this.setState({
                 username: value
-            })
+            });
         }
         if (id === 'login-password') {
             this.setState({
                 password: value
-            })
+            });
         }
     }
 
@@ -29,12 +29,13 @@ export default class Login extends Component {
         e.preventDefault();
         this.context.handleLoginSubmit(this.state.username, this.state.password);
     }
-
+ 
     render() {
         const { username, password } = this.state;
         return (
             <section>
                 <h2>Login</h2>
+                <p>Please use username: UseThisUser and password: hello123! to login as a grader</p>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label htmlFor="login-username">Username: </label>

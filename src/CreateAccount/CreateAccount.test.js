@@ -1,11 +1,10 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme'
-import toJson from 'enzyme-to-json'
+import { shallow, configure } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import ReactDOM from 'react-dom';
-import CreateAccount from './CreateAccount'
-
-import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() })
+import CreateAccount from './CreateAccount';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
 
 describe(`CreateAccount component`, () => {
     it('renders without crashing', () => {

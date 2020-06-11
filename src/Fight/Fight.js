@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import context from '../context'
-import FightProfile from '../FightProfile/FightProfile'
-import './Fight.css'
-import config from '../config'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import context from '../context';
+import FightProfile from '../FightProfile/FightProfile';
+import './Fight.css';
+import config from '../config';
+import { Redirect } from 'react-router-dom';
 
 export default class Fight extends Component {
     static contextType = context;
@@ -19,7 +19,7 @@ export default class Fight extends Component {
             winner: '',
             loser: '',
             error: ''
-        }
+        };
     }
 
     componentDidMount() {
@@ -29,7 +29,7 @@ export default class Fight extends Component {
         this.setState({
             character: character,
             opponent: opponent,
-        })
+        });
     }
 
     handleFight = (character, opponent) => {
@@ -55,7 +55,7 @@ export default class Fight extends Component {
                     loser: opponent,
                     char_1_id: character.id,
                     char_2_id: opponent.id
-                })
+                });
 
                 this.context.updateCharacter(character, 'fight');
                 this.context.updateCharacter(opponent, 'fight');
@@ -65,11 +65,10 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id,
                     points: 2
-                }
+                };
                 this.updateMatches(matchObject);
             }
             else if (userRoll < oppRoll) {
-                // update losses
                 opponent.current_points = Number(opponent.current_points) + 2;
                 opponent.wins = Number(opponent.wins) + 1;
                 character.losses = Number(character.losses) + 1;
@@ -79,7 +78,7 @@ export default class Fight extends Component {
                     loser: character,
                     char_1_id: character.id,
                     char_2_id: opponent.id
-                })
+                });
                 this.context.updateCharacter(character, 'fight');
                 this.context.updateCharacter(opponent, 'fight');
                 const matchObject = {
@@ -88,7 +87,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id,
                     points: 2
-                }
+                };
                 this.updateMatches(matchObject);
             }
             else if (userRoll === oppRoll) {
@@ -98,7 +97,7 @@ export default class Fight extends Component {
                     loser: 'none',
                     char_1_id: character.id,
                     char_2_id: opponent.id
-                })
+                });
             }
         }
         if (coin === 'mental') {
@@ -115,7 +114,7 @@ export default class Fight extends Component {
                     loser: opponent,
                     char_1_id: character.id,
                     char_2_id: opponent.id
-                })
+                });
 
                 this.context.updateCharacter(character, 'fight');
                 this.context.updateCharacter(opponent, 'fight');
@@ -125,7 +124,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id,
                     points: 2
-                }
+                };
                 this.updateMatches(matchObject);
             }
             else if (userRoll < oppRoll) {
@@ -138,7 +137,7 @@ export default class Fight extends Component {
                     loser: character,
                     char_1_id: character.id,
                     char_2_id: opponent.id
-                })
+                });
 
                 this.context.updateCharacter(character, 'fight');
                 this.context.updateCharacter(opponent, 'fight');
@@ -148,7 +147,7 @@ export default class Fight extends Component {
                     char_1_id: character.id,
                     char_2_id: opponent.id,
                     points: 2
-                }
+                };
                 this.updateMatches(matchObject);
             }
             else if (userRoll === oppRoll) {
@@ -158,12 +157,12 @@ export default class Fight extends Component {
                     loser: 'none',
                     char_1_id: character.id,
                     char_2_id: opponent.id
-                })
+                });
             }
         }
         this.setState({
             currentButton: 'Next Opponent'
-        })
+        });
     }
 
     updateMatches(matchObject) {
@@ -190,7 +189,7 @@ export default class Fight extends Component {
             opponent: opponent,
             currentButton: 'Fight',
             winnerText: ' '
-        })
+        });
     }
 
     getDifference = (character, opponent) => {
@@ -199,7 +198,7 @@ export default class Fight extends Component {
         const charismaDiff = character.charisma - opponent.charisma;
         const agilityDiff = character.charisma - opponent.charisma;
 
-        return { strengthDiff, intelligenceDiff, charismaDiff, agilityDiff }
+        return { strengthDiff, intelligenceDiff, charismaDiff, agilityDiff };
     }
 
     coinFlip() {
