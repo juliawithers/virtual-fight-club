@@ -20,4 +20,4 @@ describe(`Login component`, () => {
         const wrapper = shallow(<Login />)
         expect(toJson(wrapper)).toMatchSnapshot();
     })
-})
+})  
