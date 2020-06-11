@@ -115,7 +115,7 @@ class App extends Component {
       })
       .catch(error => {
         this.setState({
-          error: 'Password or Username is incorrect, please verify login information'
+          loginError: 'Password or Username is incorrect, please verify login information'
         })
       })
   }
@@ -257,6 +257,12 @@ class App extends Component {
       })
       .catch(error => this.setState({ error }))
 
+      this.setState({
+        character: {},
+        attrpoints: '',
+        level: '',
+      })
+      this.getCharactersList();
   }
 
   deleteUser = (userId) => {
@@ -272,20 +278,27 @@ class App extends Component {
         if (!res.ok) {
           throw new Error(res.status);
         }
-
-        this.setState({
-          login: false
-        })
-        this.props.history.push('/')
         return res.json();
       })
       .catch(error => this.setState({ error }))
+
+      this.setState({
+        login: false,
+        auth: '',
+        username: '',
+        user_id: '',
+        character: {},
+        attrpoints: '',
+        level: '',
+        opponent: {},
+      })
+      this.getCharactersList();
   }
 
   handleLogout = () => {
     this.setState({
       login: false,
-      character: []
+      character: {}
     })
     this.props.history.push('/')
   }
@@ -351,7 +364,7 @@ class App extends Component {
       usernameErr: this.state.usernameErr,
       passwordErr: this.state.passwordErr,
       login: this.state.login,
-      loginError: '',
+      loginError: this.state.loginError,
       auth: this.state.auth,
       username: this.state.username,
       user_id: this.state.user_id,

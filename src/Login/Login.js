@@ -45,7 +45,7 @@ export default class Login extends Component {
                         <input className="login-password" onChange={this.handleChangeInput} type="password" name='login-password' id='login-password'
                         value={password} />
                     </div>
-                    <ValidateLogin message={this.context.error} />
+                    <ValidateLogin message={this.context.loginError} />
                     <button type='submit'>Login</button>
                 </form>
             </section>

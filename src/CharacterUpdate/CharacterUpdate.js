@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ValidateUpdate from './ValidateUpdate'
@@ -273,10 +273,11 @@ class CharacterUpdate extends Component {
     }
 
     handleDeleteCharacter = () => {
-        this.context.deleteCharacter(this.state.character.id);
+ 
+        this.context.deleteCharacter(this.context.character.id);
         this.setState({
             formLogic: true
-        })
+        });
     }
 
     handleDeleteUser = () => {
@@ -316,13 +317,18 @@ class CharacterUpdate extends Component {
                     className="delete-character"
                     onClick={this.handleDeleteCharacter}
                 >
-                    <FontAwesomeIcon icon={faTrashAlt} /> character?
+                    <Link to='/'>
+                        <FontAwesomeIcon icon={faTrashAlt} /> character?
+                    </Link>
+                    
             </button>
                 <button
                     className="delete-account"
                     onClick={this.handleDeleteUser}
-                >
+                > 
+                <Link to='/'>
                     <FontAwesomeIcon icon={faTrashAlt} /> account?
+                </Link>
             </button>
             </div>
         )

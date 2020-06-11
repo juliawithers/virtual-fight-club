@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import context from '../context'
+import { Link, withRouter } from 'react-router-dom'
 import ValidateCreate from './ValidateCreate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-export default class CharacterCreate extends Component {
+class CharacterCreate extends Component {
     static contextType = context;
     constructor(props) {
         super(props);
@@ -276,9 +277,13 @@ export default class CharacterCreate extends Component {
                     className="delete-account"
                     onClick={this.handleDeleteUser}
                 >
-                    <FontAwesomeIcon icon={faTrashAlt} /> account?
+                    <Link to='/'>
+                        <FontAwesomeIcon icon={faTrashAlt} /> account?
+                    </Link>
+                    
                 </button>
             </div>
         )
     }
 }
+export default withRouter(CharacterCreate)
