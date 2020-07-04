@@ -1,6 +1,7 @@
 # Virtual Fight Club
 
 Link to live app: https://virtual-fight-club.now.sh/
+
 Link to API Repo: https://github.com/juliawithers/vfc-api
 
 ## Description
